@@ -8,7 +8,7 @@ public class SimpleJetpacks extends JavaPlugin {
     public void onEnable() {
         // Send enable message
         getServer().getConsoleSender().sendMessage(ChatColor.BLUE+"[SimpleJetpacks]: Plugin Enabled");
-        JetpackItem.init();
+        JetpackItem.init(this);
         getServer().getPluginManager().registerEvents(new JetpackEvents(this), this);
         getCommand("jetpack").setExecutor(new JetpackCommands());
     }

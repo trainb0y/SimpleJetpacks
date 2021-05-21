@@ -1,30 +1,33 @@
-package io.github.trainb0y1.simplejetpacks;
+package io.github.trainb0y1.simplejetpacks.items;
 
+import io.github.trainb0y1.simplejetpacks.SimpleJetpacks;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class JetpackItem {
+public class ItemManager {
     public static ItemStack jetpack;
 
-    public static void init(JavaPlugin plugin) {
-        createJetpack(plugin);
-    }
-
-    private static void createJetpack(JavaPlugin plugin) {
+    public static void createJetpack(JavaPlugin plugin) {
         ItemStack item = new ItemStack(Material.LEATHER_CHESTPLATE,1);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§6Jetpack");
         List<String> lore = new ArrayList<>();
         lore.add("§7Consumes coal as fuel");
         meta.setLore(lore);
+        PersistentDataContainer data = meta.getPersistentDataContainer();
+        data.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"jetpack"), PersistentDataType.INTEGER, 1);
+        // Value is arbitrary, it just has to have this data.
+
         item.setItemMeta(meta);
 
         NamespacedKey key = new NamespacedKey(plugin, "jetpack");

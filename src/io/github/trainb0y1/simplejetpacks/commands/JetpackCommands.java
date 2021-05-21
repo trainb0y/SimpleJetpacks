@@ -1,6 +1,7 @@
-package io.github.trainb0y1.simplejetpacks;
+package io.github.trainb0y1.simplejetpacks.commands;
 
-import io.github.trainb0y1.simplejetpacks.JetpackItem;
+
+import io.github.trainb0y1.simplejetpacks.items.ItemManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,7 +17,7 @@ public class JetpackCommands implements CommandExecutor {
         }
         Player player = (Player) sender;
         if (cmd.getName().equalsIgnoreCase("jetpack")) {
-            player.getInventory().addItem(JetpackItem.jetpack);
+            player.getInventory().addItem(ItemManager.jetpack);
         }
         return true;
     }

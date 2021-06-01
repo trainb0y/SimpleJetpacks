@@ -51,7 +51,8 @@ public class JetpackFlyingListener implements Listener {
                         if (fuel == 100) {
                             player.sendMessage(ChatColor.GOLD + "[SimpleJetpacks] Jetpack Fuel Low!");
                         }
-                        ((Damageable) meta).setDamage(Math.round(80 - (((float) fuel / SimpleJetpacks.getPlugin().maxFuel) * 80)));
+                        int maxFuel = SimpleJetpacks.getPlugin().getConfig().getInt("max-fuel");
+                        ((Damageable) meta).setDamage(Math.round(80 - (((float) fuel / maxFuel) * 80)));
                         player.getInventory().getChestplate().setItemMeta(meta);
 
                     }

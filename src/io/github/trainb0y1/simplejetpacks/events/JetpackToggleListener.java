@@ -40,7 +40,6 @@ public class JetpackToggleListener implements Listener {
                 }
             }
 
-            event.getPlayer().getServer().getConsoleSender().sendMessage("Jetpacking "+isJetpacking);
             data.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"jetpacking"),PersistentDataType.INTEGER,isJetpacking);
         }
     }

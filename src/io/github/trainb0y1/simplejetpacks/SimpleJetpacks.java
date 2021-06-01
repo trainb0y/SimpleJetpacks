@@ -13,25 +13,26 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SimpleJetpacks extends JavaPlugin {
     private static SimpleJetpacks plugin;
-    public final int maxFuel = 1000;
+
     @Override
     public void onEnable() {
         plugin = this;
+        plugin.saveDefaultConfig();
         ItemManager.createJetpack(this);
-        //getServer().getPluginManager().registerEvents(new JetpackEvents(), this);
+
         getServer().getPluginManager().registerEvents(new RefuelEventListener(), this);
         getServer().getPluginManager().registerEvents(new JetpackFlyKickListener(), this);
         getServer().getPluginManager().registerEvents(new JetpackBreakListener(), this);
         getServer().getPluginManager().registerEvents(new JetpackToggleListener(), this);
         getServer().getPluginManager().registerEvents(new JetpackFlyingListener(), this);
 
-        getCommand("jetpack").setExecutor(new JetpackCommands());
-        getServer().getConsoleSender().sendMessage(ChatColor.BLUE+"[SimpleJetpacks]: Plugin Enabled");
+        getCommand("simplejetpacks").setExecutor(new JetpackCommands());
+        getServer().getConsoleSender().sendMessage(ChatColor.BLUE+"[SimpleJetpacks] Plugin Enabled");
     }
     @Override
     public void onDisable() {
         // Send disable message
-        getServer().getConsoleSender().sendMessage(ChatColor.BLUE+"[SimpleJetpacks]: Plugin Disabled");
+        getServer().getConsoleSender().sendMessage(ChatColor.BLUE+"[SimpleJetpacks] Plugin Disabled");
 
     }
     public static SimpleJetpacks getPlugin(){

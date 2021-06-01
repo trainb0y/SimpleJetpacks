@@ -14,4 +14,5 @@ To use, hold shift while in midair.
 
 ### Fuel
 Jetpacks require fuel. One fuel is spent per tick in flight. Fuel is represented in the durability bar (don't worry, the jetpack will never actually break).  
-Right clicking with coal in hand while wearing the jetpack adds 100 fuel.
+Right clicking with a fuel item (defined in config.yml) in hand while wearing the jetpack adds fuel.
+The default fuel items are Coal (100 fuel), Charcoal (100), Redstone Dust (50), and Redstone Blocks (500)

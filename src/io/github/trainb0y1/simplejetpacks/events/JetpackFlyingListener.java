@@ -48,10 +48,12 @@ public class JetpackFlyingListener implements Listener {
                         //player.sendMessage("Fuel/Max Fuel: "+Double.toString((float)fuel/maxFuel));
                         //player.sendMessage("New Durability: "+Integer.toString(Math.round(((float)fuel / maxFuel)*80)));
                         //player.sendMessage("New Damage: "+Integer.toString(Math.round(80-(((float)fuel / maxFuel)*80))));
-                        if (fuel == 100) {
+                        int maxFuel = SimpleJetpacks.getPlugin().getConfig().getInt("max-fuel");
+                        
+                        if (fuel == maxFuel / 10) {
                             player.sendMessage(ChatColor.GOLD + "[SimpleJetpacks] Jetpack Fuel Low!");
                         }
-                        int maxFuel = SimpleJetpacks.getPlugin().getConfig().getInt("max-fuel");
+                        
                         ((Damageable) meta).setDamage(Math.round(80 - (((float) fuel / maxFuel) * 80)));
                         player.getInventory().getChestplate().setItemMeta(meta);
 

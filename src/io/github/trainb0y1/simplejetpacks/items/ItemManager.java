@@ -23,7 +23,7 @@ public class ItemManager {
         meta.setDisplayName("§6Jetpack");
         List<String> lore = new ArrayList<>();
         lore.add("§7Right click with fuel item");
-        lore.add("§7while wearing to add fuel.");
+        lore.add("§7while wearing to add fuel");
         meta.setLore(lore);
         PersistentDataContainer data = meta.getPersistentDataContainer();
         data.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"jetpack"), PersistentDataType.INTEGER, 1);

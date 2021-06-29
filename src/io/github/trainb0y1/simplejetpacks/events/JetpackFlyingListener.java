@@ -21,14 +21,14 @@ public class JetpackFlyingListener implements Listener {
         // jetpack jetpacking
         Player player = event.getPlayer();
         if (event.getPlayer().getInventory().getChestplate() != null) {
-            if (player.isSneaking() && SimpleJetpacks.isJetpack(player.getInventory().getChestplate().getItemMeta())){
-                PersistentDataContainer data = player.getPersistentDataContainer();
-                if (data.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpacking"), PersistentDataType.INTEGER) == 1) {
+            ItemMeta chestplateMeta = player.getInventory().getChestplate().getItemMeta();
+            if (player.isSneaking() && SimpleJetpacks.isJetpack(chestplateMeta)){
+                PersistentDataContainer chestplateData = chestplateMeta.getPersistentDataContainer();
+                PersistentDataContainer playerData = player.getPersistentDataContainer();
 
-                    if (data.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpackFuel"), PersistentDataType.INTEGER) == null){
-                        data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpackFuel"), PersistentDataType.INTEGER,1000);
-                    }
-                    int fuel = data.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpackFuel"), PersistentDataType.INTEGER);
+                if (playerData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpacking"), PersistentDataType.INTEGER) == 1) {
+
+                    int fuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER);
                     if (fuel <= 0) {
                         player.sendMessage(ChatColor.RED + "[SimpleJetpacks] Jetpack out of fuel!");
                     } else {
@@ -39,12 +39,10 @@ public class JetpackFlyingListener implements Listener {
                         player.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, player.getLocation(), 0);
                         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_CAT_PURR, 10, 1);
 
-                        ItemMeta meta = player.getInventory().getChestplate().getItemMeta();
-
                         //player.sendMessage("Old Fuel: "+Integer.toString(fuel));
                         fuel -= 1;
                         //player.sendMessage("New Fuel: "+Integer.toString(fuel));
-                        data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpackFuel"), PersistentDataType.INTEGER, fuel);
+                        chestplateData.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, fuel);
                         //player.sendMessage("Fuel/Max Fuel: "+Double.toString((float)fuel/maxFuel));
                         //player.sendMessage("New Durability: "+Integer.toString(Math.round(((float)fuel / maxFuel)*80)));
                         //player.sendMessage("New Damage: "+Integer.toString(Math.round(80-(((float)fuel / maxFuel)*80))));
@@ -54,8 +52,8 @@ public class JetpackFlyingListener implements Listener {
                             player.sendMessage(ChatColor.GOLD + "[SimpleJetpacks] Jetpack Fuel Low!");
                         }
                         
-                        ((Damageable) meta).setDamage(Math.round(80 - (((float) fuel / maxFuel) * 80)));
-                        player.getInventory().getChestplate().setItemMeta(meta);
+                        ((Damageable) chestplateMeta).setDamage(Math.round(80 - (((float) fuel / maxFuel) * 80)));
+                        player.getInventory().getChestplate().setItemMeta(chestplateMeta);
 
                     }
                 }

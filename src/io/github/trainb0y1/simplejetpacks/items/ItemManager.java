@@ -27,6 +27,8 @@ public class ItemManager {
         meta.setLore(lore);
         PersistentDataContainer data = meta.getPersistentDataContainer();
         data.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"jetpack"), PersistentDataType.INTEGER, 1);
+        data.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"fuel"), PersistentDataType.INTEGER, 0);
+        data.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"maxFuel"), PersistentDataType.INTEGER, 1000);
         // Value is arbitrary, it just has to have this data.
 
         item.setItemMeta(meta);

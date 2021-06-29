@@ -1,5 +1,5 @@
 # The maximum fuel a jetpack can hold
-max-fuel: 1000
+# max-fuel: 1000
 
 # Fuel items are defined below, with <ID>:<Fuel Amount>
 items:

@@ -18,7 +18,6 @@ public class JetpackCommands implements CommandExecutor {
             if (args.length == 0){
                 return false; // Will return the plugin.yml usage message
             }
-
             // Jetpack give command
             if (args[0].equalsIgnoreCase("give")){
                 SimpleJetpacks.getPlugin().getServer().getConsoleSender().sendMessage(ChatColor.BLUE + "Found give command");
@@ -33,7 +32,6 @@ public class JetpackCommands implements CommandExecutor {
                 }
                 Player player = (Player) sender;
                 player.getInventory().addItem(ItemManager.jetpack);
-
             }
 
             // Config file reload command

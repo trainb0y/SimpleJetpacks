@@ -3,7 +3,7 @@
 A 1.16+ Spigot plugin that adds Jetpacks to Minecraft
 ### Recipe
 ![Recipe](https://cdn.discordapp.com/attachments/844754090691919892/845051880711127101/unknown.png)  
-(Screenshot is from old version, but recipe is the same)
+(Screenshot is from an old version, but the recipe is the same)
   
 6x Iron Ingot  
 1x Piston  

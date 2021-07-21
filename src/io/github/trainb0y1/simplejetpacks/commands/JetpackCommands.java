@@ -16,13 +16,11 @@ public class JetpackCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("simplejetpacks")){
-            // SimpleJetpacks.getPlugin().getServer().getConsoleSender().sendMessage(ChatColor.BLUE + "Found command");
             if (args.length == 0){
                 return false; // Will return the plugin.yml usage message
             }
             // Jetpack give command
             if (args[0].equalsIgnoreCase("give")){
-                // SimpleJetpacks.getPlugin().getServer().getConsoleSender().sendMessage(ChatColor.BLUE + "Found give command");
                 // /simplejetpacks give
                 if (!(sender instanceof Player)) {
                     sender.sendMessage("Only players can use this command!");
@@ -33,7 +31,10 @@ public class JetpackCommands implements CommandExecutor {
                     return true;
                 }
                 if (args.length == 1){ //If there's only one argument, there isn't two!
-                    sender.sendMessage(ChatColor.RED + "No base chestplate specified!");
+                    sender.sendMessage(ChatColor.RED + "No base chestplate specified! Available Jetpacks:");
+                    for (ItemStack jetpack: ItemManager.jetpacks){
+                        sender.sendMessage(ChatColor.RED + "    " + jetpack.getType().toString());
+                    }
                     return true;
                 }
                 Player player = (Player) sender;

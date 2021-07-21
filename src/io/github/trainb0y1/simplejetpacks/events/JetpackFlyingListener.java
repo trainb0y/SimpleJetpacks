@@ -38,14 +38,8 @@ public class JetpackFlyingListener implements Listener {
                         player.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, player.getLocation(), 0);
                         player.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, player.getLocation(), 0);
                         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_CAT_PURR, 10, 1);
-
-                        //player.sendMessage("Old Fuel: "+Integer.toString(fuel));
                         fuel -= 1;
-                        //player.sendMessage("New Fuel: "+Integer.toString(fuel));
                         chestplateData.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, fuel);
-                        //player.sendMessage("Fuel/Max Fuel: "+Double.toString((float)fuel/maxFuel));
-                        //player.sendMessage("New Durability: "+Integer.toString(Math.round(((float)fuel / maxFuel)*80)));
-                        //player.sendMessage("New Damage: "+Integer.toString(Math.round(80-(((float)fuel / maxFuel)*80))));
                         int maxFuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(),"maxFuel"),PersistentDataType.INTEGER);
 
                         if (fuel == maxFuel / 10) {

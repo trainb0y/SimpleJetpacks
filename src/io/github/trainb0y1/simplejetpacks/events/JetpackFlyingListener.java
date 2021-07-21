@@ -46,14 +46,17 @@ public class JetpackFlyingListener implements Listener {
                         //player.sendMessage("Fuel/Max Fuel: "+Double.toString((float)fuel/maxFuel));
                         //player.sendMessage("New Durability: "+Integer.toString(Math.round(((float)fuel / maxFuel)*80)));
                         //player.sendMessage("New Damage: "+Integer.toString(Math.round(80-(((float)fuel / maxFuel)*80))));
-                        int maxFuel = SimpleJetpacks.getPlugin().getConfig().getInt("max-fuel");
-                        
+                        int maxFuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(),"maxFuel"),PersistentDataType.INTEGER);
+
                         if (fuel == maxFuel / 10) {
                             player.sendMessage(ChatColor.GOLD + "[SimpleJetpacks] Jetpack Fuel Low!");
                         }
-                        
-                        ((Damageable) chestplateMeta).setDamage(Math.round(80 - (((float) fuel / maxFuel) * 80)));
-                        player.getInventory().getChestplate().setItemMeta(chestplateMeta);
+
+
+                        Short durability = event.getPlayer().getInventory().getChestplate().getType().getMaxDurability();
+                        chestplateData.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"fuel"),PersistentDataType.INTEGER,fuel);
+                        ((Damageable) chestplateMeta).setDamage(Math.round(durability - (((float) fuel / maxFuel) * durability))); // update durability bar
+                        player.getInventory().getChestplate().setItemMeta(chestplateMeta); // update worn jetpack
 
                     }
                 }

@@ -1,9 +1,13 @@
-# The maximum fuel a jetpack can hold
-# max-fuel: 1000
-
+# SimpleJetpacks Config
+#
 # Fuel items are defined below, with <ID>:<Fuel Amount>
 items:
   COAL: 100
   CHARCOAL: 100
   REDSTONE: 50
   REDSTONE_BLOCK: 500
+
+# Jetpacks are defined below, with <ID>:<Fuel Capacity>
+jetpacks:
+  LEATHER_CHESTPLATE: 500
+  IRON_CHESTPLATE: 1000

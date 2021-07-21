@@ -18,7 +18,7 @@ public class SimpleJetpacks extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         plugin.saveDefaultConfig();
-        ItemManager.createJetpack(this);
+        ItemManager.createJetpacks(this);
 
         getServer().getPluginManager().registerEvents(new RefuelEventListener(), this);
         getServer().getPluginManager().registerEvents(new JetpackFlyKickListener(), this);

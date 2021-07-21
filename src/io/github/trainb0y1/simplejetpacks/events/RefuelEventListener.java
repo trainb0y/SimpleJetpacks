@@ -52,7 +52,8 @@ public class RefuelEventListener implements Listener {
                             player.sendMessage(ChatColor.GREEN+"[SimpleJetpacks] Jetpack refilled, fuel remaining: "+fuelHeld);
                         }
                         heldJetpackData.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"fuel"), PersistentDataType.INTEGER, fuelHeld);
-                        ((Damageable) heldJetpackMeta).setDamage(Math.round(80 - (((float) fuelHeld / heldMaxFuel) * 80)));
+                        Short heldDurability = event.getItem().getType().getMaxDurability();
+                        ((Damageable) heldJetpackMeta).setDamage(Math.round(heldDurability - (((float) fuelHeld / heldMaxFuel) * heldDurability)));
                         event.getItem().setItemMeta(heldJetpackMeta); // update held jetpack
 
                     }
@@ -82,8 +83,9 @@ public class RefuelEventListener implements Listener {
 
                         }
                     }
+                    Short durability = event.getPlayer().getInventory().getChestplate().getType().getMaxDurability();
                     chestplateData.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"fuel"),PersistentDataType.INTEGER,fuel);
-                    ((Damageable) chestplateMeta).setDamage(Math.round(80 - (((float) fuel / maxFuel) * 80))); // update durability bar
+                    ((Damageable) chestplateMeta).setDamage(Math.round(durability - (((float) fuel / maxFuel) * durability))); // update durability bar
                     player.getInventory().getChestplate().setItemMeta(chestplateMeta); // update worn jetpack
                 }
             }

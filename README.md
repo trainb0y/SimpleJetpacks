@@ -21,3 +21,5 @@ The default jetpacks are Iron Chestplate with 1000 fuel capacity, and Leather wi
 Jetpacks require fuel. One fuel is spent per tick in flight. Fuel is represented in the durability bar (don't worry, the jetpack will never actually break).  
 Right clicking with a fuel item (defined in config.yml) in hand while wearing the jetpack adds fuel.
 The default fuel items are Coal (100 fuel), Charcoal (100), Redstone Dust (50), and Redstone Blocks (500)
+
+## NOTE: This is my second-ever plugin, it may cause lag and have a bunch of bugs. I probably did not use many best practices. If you find an issue or have a suggestion, please let me know!

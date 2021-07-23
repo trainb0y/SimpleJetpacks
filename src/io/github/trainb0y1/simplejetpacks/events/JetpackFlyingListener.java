@@ -34,6 +34,8 @@ public class JetpackFlyingListener implements Listener {
                     int fuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER);
                     if (fuel <= 0) {
                         player.sendMessage(ChatColor.RED + "[SimpleJetpacks] Jetpack out of fuel!");
+                        playerData.set(playerData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpacking"), PersistentDataType.INTEGER,0);
+                        // Stop jetpacking to prevent empty jetpack from being free elytra and prevent spam
                     } else {
 
                         //

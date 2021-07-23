@@ -59,6 +59,7 @@ public class JetpackCommands implements CommandExecutor {
                     return true;
                 }
                 SimpleJetpacks.getPlugin().reloadConfig(); // reload the config
+                SimpleJetpacks.oldMotion = SimpleJetpacks.getPlugin().getConfig().getBoolean("old-motion");
                 sender.sendMessage(ChatColor.GREEN+"[SimpleJetpacks] Config reloaded! If you defined a new jetpack, a server restart is required to apply changes.");
             }
         }

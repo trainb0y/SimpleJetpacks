@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SimpleJetpacks extends JavaPlugin {
     private static SimpleJetpacks plugin;
+    public static boolean oldMotion;
 
     @Override
     public void onEnable() {
@@ -25,6 +26,9 @@ public class SimpleJetpacks extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JetpackBreakListener(), this);
         getServer().getPluginManager().registerEvents(new JetpackToggleListener(), this);
         getServer().getPluginManager().registerEvents(new JetpackFlyingListener(), this);
+        getServer().getPluginManager().registerEvents(new JetpackGlideListener(), this);
+
+        plugin.oldMotion = plugin.getConfig().getBoolean("old-motion");
 
         getCommand("simplejetpacks").setExecutor(new JetpackCommands());
         getServer().getConsoleSender().sendMessage(ChatColor.BLUE+"[SimpleJetpacks] Plugin Enabled");

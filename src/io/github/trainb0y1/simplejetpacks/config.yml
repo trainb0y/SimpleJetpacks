@@ -1,5 +1,9 @@
 # SimpleJetpacks Config
 #
+
+# Whether or not to use the <0.5 movement code
+old-motion: false
+
 # Fuel items are defined below, with <ID>:<Fuel Amount>
 items:
   COAL: 100

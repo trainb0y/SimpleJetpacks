@@ -1,10 +1,7 @@
 package io.github.trainb0y1.simplejetpacks.events;
 
 import io.github.trainb0y1.simplejetpacks.SimpleJetpacks;
-import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,12 +25,26 @@ public class JetpackFlyingListener implements Listener {
 
                 if (playerData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpacking"), PersistentDataType.INTEGER) == 1) {
 
+                    // In order to prevent glitching into the ground with the 0.5 glide movement, we have to disable jetpacking into the ground
+                    if (player.getLocation().subtract(0, 1, 0).getBlock().getType() != Material.AIR){
+                        playerData.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"jetpacking"),PersistentDataType.INTEGER,0);
+                        return; // Stop it
+                    }
+
                     int fuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER);
                     if (fuel <= 0) {
                         player.sendMessage(ChatColor.RED + "[SimpleJetpacks] Jetpack out of fuel!");
                     } else {
 
-                        player.setVelocity(player.getLocation().getDirection().multiply(1.2).setY(0.5));
+                        //
+                        if (SimpleJetpacks.oldMotion){
+                            player.setVelocity(player.getLocation().getDirection().multiply(1.2).setY(0.5));
+                        }
+                        else {
+                            player.setVelocity(player.getLocation().getDirection().multiply(1.2));
+                        }
+
+
                         player.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, player.getLocation(), 0);
                         player.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, player.getLocation(), 0);
                         player.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, player.getLocation(), 0);

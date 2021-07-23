@@ -33,7 +33,7 @@ public class JetpackToggleListener implements Listener {
                     //(player.isSneaking())){
                     // player.issneaking prevents unshifting in midair to start, which leads you to only fall WHILE SHIFTING
                     isJetpacking = 1;
-
+                    player.setGliding(true);
                 }
                 else if (isJetpacking == 1) {
                     isJetpacking = 0;

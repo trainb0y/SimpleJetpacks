@@ -4,6 +4,9 @@
 # Whether or not to use the <0.5 movement code
 old-motion: false
 
+# Whether to check for updates on start
+check-updates: true
+
 # Fuel items are defined below, with <ID>:<Fuel Amount>
 items:
   COAL: 100

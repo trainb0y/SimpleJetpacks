@@ -83,10 +83,7 @@ public class RefuelEventListener implements Listener {
 
                         }
                     }
-                    Short durability = event.getPlayer().getInventory().getChestplate().getType().getMaxDurability();
-                    chestplateData.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"fuel"),PersistentDataType.INTEGER,fuel);
-                    ((Damageable) chestplateMeta).setDamage(Math.round(durability - (((float) fuel / maxFuel) * durability))); // update durability bar
-                    player.getInventory().getChestplate().setItemMeta(chestplateMeta); // update worn jetpack
+                    SimpleJetpacks.updateFuel(player.getInventory().getChestplate(),fuel);
                 }
             }
         }

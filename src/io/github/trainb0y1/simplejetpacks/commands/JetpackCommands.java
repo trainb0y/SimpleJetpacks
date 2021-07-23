@@ -2,7 +2,9 @@ package io.github.trainb0y1.simplejetpacks.commands;
 
 
 import io.github.trainb0y1.simplejetpacks.SimpleJetpacks;
+import io.github.trainb0y1.simplejetpacks.UpdateChecker;
 import io.github.trainb0y1.simplejetpacks.items.ItemManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -19,37 +21,57 @@ public class JetpackCommands implements CommandExecutor {
             if (args.length == 0){
                 return false; // Will return the plugin.yml usage message
             }
-            // Jetpack give command
+            if (args[0].equalsIgnoreCase("version")){
+                new UpdateChecker(SimpleJetpacks.getPlugin(), 92562).getVersion(newVersion -> {
+                    newVersion = newVersion.replace("v", ""); // On spigot I have it listed as v0.4, v0.5 etc.
+                    String currentVersion = SimpleJetpacks.getPlugin().getDescription().getVersion();
+                    if (newVersion.equalsIgnoreCase(currentVersion)) {
+                        sender.sendMessage("Plugin is up to date! Version: "+currentVersion);
+                    } else {
+                        sender.sendMessage(ChatColor.YELLOW+ "[SimpleJetpacks] There is a new version available!");
+                        sender.sendMessage("Current Version: " + currentVersion);
+                        sender.sendMessage("New Version: " + newVersion);
+                        sender.sendMessage("Download the latest version at https://www.spigotmc.org/resources/simplejetpacks.92562/");
+                    }
+                });
+            }
+
+
+
             if (args[0].equalsIgnoreCase("give")){
                 // /simplejetpacks give
-                if (!(sender instanceof Player)) {
-                    sender.sendMessage("Only players can use this command!");
-                    return true;
-                }
                 if (!sender.hasPermission("simplejetpacks.give")){
                     sender.sendMessage(ChatColor.RED + "You do not have the permission simplejetpacks.give!");
                     return true;
                 }
-                if (args.length == 1){ //If there's only one argument, there isn't two!
-                    sender.sendMessage(ChatColor.RED + "No base chestplate specified! Available Jetpacks:");
+                if (args.length != 3) {
+                    sender.sendMessage(ChatColor.RED+"Incorrect number of arguments for Give! \nUsage: /simplejetpacks give <player> <type>");
+                    return true;
+                }
+
+                // get the specified player
+                Player player = Bukkit.getPlayer(args[1]);
+                if (player == null) {
+                    sender.sendMessage(ChatColor.RED + "[SimpleJetpacks] " + args[1] + " is not a valid player!");
+                    return true;
+                }
+
+                // get the specified jetpack type
+                ItemStack pack = ItemManager.getJetpack(Material.getMaterial(args[2].toUpperCase()));
+                if (pack == null) {
+                    sender.sendMessage(ChatColor.RED + "[SimpleJetpacks] "+args[2]+" is not a valid jetpack type.\n Available Jetpacks:");
                     for (ItemStack jetpack: ItemManager.jetpacks){
                         sender.sendMessage(ChatColor.RED + "    " + jetpack.getType().toString());
                     }
                     return true;
                 }
-                Player player = (Player) sender;
-                ItemStack pack = ItemManager.getJetpack(Material.getMaterial(args[1].toUpperCase()));
-                if (pack == null){
-                    player.sendMessage(ChatColor.RED+"There is no jetpack defined with that base item. \nAvailable Jetpacks:");
-                    for (ItemStack jetpack: ItemManager.jetpacks){
-                        player.sendMessage(ChatColor.RED + "    " + jetpack.getType().toString());
-                    }
-                }
-                else {
-                    player.getInventory().addItem(pack);
-                }
+
+                player.getInventory().addItem(pack);
+                sender.sendMessage(ChatColor.GREEN + "[SimpleJetpacks] Gave 1 jetpack of type "+args[2]+" to player "+args[1]);
                 return true;
             }
+
+
 
             // Config file reload command
             if (args[0].equalsIgnoreCase("reload")){

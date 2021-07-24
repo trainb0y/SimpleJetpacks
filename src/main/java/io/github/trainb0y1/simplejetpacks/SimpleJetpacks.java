@@ -1,6 +1,6 @@
 package io.github.trainb0y1.simplejetpacks;
 
-import io.github.trainb0y1.SimpleJetpacks.KotlinCommandTest;
+import io.github.trainb0y1.simplejetpacks.commands.KotlinCommandTest;
 import io.github.trainb0y1.simplejetpacks.commands.JetpackCommands;
 import io.github.trainb0y1.simplejetpacks.commands.JetpackTabComplete;
 import io.github.trainb0y1.simplejetpacks.events.*;

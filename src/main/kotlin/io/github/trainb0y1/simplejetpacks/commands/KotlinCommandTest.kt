@@ -1,4 +1,4 @@
-package io.github.trainb0y1.SimpleJetpacks
+package io.github.trainb0y1.simplejetpacks.commands
 
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor

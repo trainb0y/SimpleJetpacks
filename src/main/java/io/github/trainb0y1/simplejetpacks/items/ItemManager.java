@@ -2,7 +2,6 @@ package io.github.trainb0y1.simplejetpacks.items;
 
 import io.github.trainb0y1.simplejetpacks.SimpleJetpacks;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -53,7 +52,7 @@ public class ItemManager {
             jetpacks.add(item);
         }
         if (jetpacks == null){
-            SimpleJetpacks.getPlugin().getLogger().warning(ChatColor.RED+"[SimpleJetpacks] No jetpacks defined! Define one in config.yml");
+            SimpleJetpacks.getPlugin().getLogger().warning("No jetpacks defined! Define one in config.yml");
         }
     }
     @Nullable

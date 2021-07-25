@@ -12,6 +12,10 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class JetpackBreakListener implements Listener {
+    /*
+    Prevent a jetpack from breaking when fuel (and durability bar)
+    reach 0
+     */
 
     @EventHandler
     public void onJetpackBreak(PlayerItemBreakEvent event) {

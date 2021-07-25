@@ -8,16 +8,16 @@ import org.bukkit.event.player.PlayerKickEvent;
 
 
 public class JetpackFlyKickListener implements Listener {
-
+    /*
+    Prevent the player from getting fly-kicked while jetpacking
+     */
     @EventHandler
     public void onKicked(PlayerKickEvent event) {
         // Prevent fly kicking while jetpacking
         Player player = event.getPlayer();
-        if (event.getPlayer().getInventory().getChestplate() != null) {
-            if (SimpleJetpacks.isJetpack(player.getInventory().getChestplate().getItemMeta())) {
-                if (event.getReason().contains("Flying")) {
-                    event.setCancelled(true);
-                }
+        if (SimpleJetpacks.isWearingJetpack(event.getPlayer())) {
+            if (event.getReason().contains("Flying")) {
+                event.setCancelled(true);
             }
         }
     }

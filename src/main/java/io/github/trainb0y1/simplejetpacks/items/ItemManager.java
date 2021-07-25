@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemManager {
+    /*
+    Create and manage the jetpack itemstacks
+     */
     public static ArrayList<ItemStack> jetpacks;
 
     public static void createJetpacks(JavaPlugin plugin) {

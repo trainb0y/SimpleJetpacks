@@ -12,6 +12,9 @@ import org.bukkit.persistence.PersistentDataType;
 
 
 public class JetpackToggleListener implements Listener {
+    /*
+    Enable/Disable jetpacking
+     */
 
     @EventHandler
     public void onShiftPressed(PlayerToggleSneakEvent event) {
@@ -23,24 +26,18 @@ public class JetpackToggleListener implements Listener {
             data.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"jetpacking"),PersistentDataType.INTEGER,0);
         } // Make sure they have the data
 
-        int isJetpacking = data.get(new NamespacedKey(SimpleJetpacks.getPlugin(),"jetpacking"), PersistentDataType.INTEGER);
-
-
-        if (player.getInventory().getChestplate() != null) {
-            if (SimpleJetpacks.isJetpack(player.getInventory().getChestplate().getItemMeta())) {
-                // if the player is in the air (they jumped) enable jetpack for them
-                if (isJetpacking == 0 && player.getLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR) { //&&
-                    //(player.isSneaking())){
-                    // player.issneaking prevents unshifting in midair to start, which leads you to only fall WHILE SHIFTING
-                    isJetpacking = 1;
-                    player.setGliding(true);
-                }
-                else if (isJetpacking == 1) {
-                    isJetpacking = 0;
-                }
+        if (SimpleJetpacks.isWearingJetpack(player)) {
+            // if the player is in the air (they jumped) enable jetpack for them
+            if (!SimpleJetpacks.isJetpacking(player) && player.getLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR) { //&&
+                //(player.isSneaking())){
+                // player.issneaking prevents unshifting in midair to start, which leads you to only fall WHILE SHIFTING
+                SimpleJetpacks.setJetpacking(player,true);
+                player.setGliding(true);
+            } else if (SimpleJetpacks.isJetpacking(player)) {
+                SimpleJetpacks.setJetpacking(player,false);
+                player.setGliding(false);
+                player.setSneaking(false); // this should be redundant, but just in case...
             }
-
-            data.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"jetpacking"),PersistentDataType.INTEGER,isJetpacking);
         }
     }
 }

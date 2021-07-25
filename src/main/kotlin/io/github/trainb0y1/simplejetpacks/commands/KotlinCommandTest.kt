@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender
 
 class KotlinCommandTest : CommandExecutor {
     override fun onCommand(sender: CommandSender, cmd: Command, label: String, args: Array<String>): Boolean {
-        sender.sendMessage("hehe it works")
+        sender.sendMessage("hey it works!")
         return true
     }
 }

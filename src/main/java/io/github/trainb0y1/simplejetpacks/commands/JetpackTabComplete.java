@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JetpackTabComplete implements TabCompleter {
+    /*
+    Command argument autocomplete
+     */
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args){
         if (args.length == 1){

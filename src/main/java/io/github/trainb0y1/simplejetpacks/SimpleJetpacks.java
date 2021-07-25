@@ -6,6 +6,7 @@ import io.github.trainb0y1.simplejetpacks.commands.JetpackTabComplete;
 import io.github.trainb0y1.simplejetpacks.events.*;
 import io.github.trainb0y1.simplejetpacks.items.ItemManager;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -23,12 +24,12 @@ public class SimpleJetpacks extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-        plugin.saveDefaultConfig();
-        Logger logger = plugin.getLogger();
+        this.saveDefaultConfig();
+        Logger logger = this.getLogger();
 
         // Check for updates
-        if (plugin.getConfig().getBoolean("check-updates")) {
-            new UpdateChecker(plugin, 92562).getVersion(newVersion -> {
+        if (this.getConfig().getBoolean("check-updates")) {
+            new UpdateChecker(this, 92562).getVersion(newVersion -> {
                 newVersion = newVersion.replace("v", ""); // On spigot I have it listed as v0.4, v0.5 etc.
                 String currentVersion = this.getDescription().getVersion();
                 if (newVersion.equalsIgnoreCase(currentVersion)) {
@@ -52,13 +53,14 @@ public class SimpleJetpacks extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JetpackFlyingListener(), this);
         getServer().getPluginManager().registerEvents(new JetpackGlideListener(), this);
 
-        plugin.oldMotion = plugin.getConfig().getBoolean("old-motion");
+        this.oldMotion = this.getConfig().getBoolean("old-motion");
 
         getCommand("simplejetpacks").setExecutor(new JetpackCommands());
         getCommand("kotlin").setExecutor(new KotlinCommandTest());
         getCommand("simplejetpacks").setTabCompleter(new JetpackTabComplete());
         logger.info("Plugin Enabled");
     }
+
     @Override
     public void onDisable() {
         // Send disable message
@@ -66,26 +68,55 @@ public class SimpleJetpacks extends JavaPlugin {
         logger.info("Plugin Disabled");
 
     }
-    public static SimpleJetpacks getPlugin(){
+
+    public static SimpleJetpacks getPlugin() {
         return plugin;
     }
-    public static void updateFuel(ItemStack item, int fuel){
+
+    public static void updateFuel(ItemStack item, int fuel) {
         // Update the bar and the persistentdatacontainer
         ItemMeta chestplateMeta = item.getItemMeta();
         PersistentDataContainer chestplateData = chestplateMeta.getPersistentDataContainer();
-        int maxFuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(),"maxFuel"),PersistentDataType.INTEGER);
+        int maxFuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "maxFuel"), PersistentDataType.INTEGER);
         Short durability = item.getType().getMaxDurability();
-        chestplateData.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"fuel"),PersistentDataType.INTEGER,fuel);
+        chestplateData.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, fuel);
         ((Damageable) chestplateMeta).setDamage(Math.round(durability - (((float) fuel / maxFuel) * durability))); // update durability bar
         item.setItemMeta(chestplateMeta); // update worn jetpack
     }
-    public static boolean isJetpack(ItemMeta meta){
+
+    public static boolean isJetpack(ItemMeta meta) {
         // Check if the meta has the jetpack data
         PersistentDataContainer data = meta.getPersistentDataContainer();
-        if (data.get(new NamespacedKey(SimpleJetpacks.getPlugin(),"jetpack"), PersistentDataType.INTEGER)!= null){
-            return  true;
+        if (data.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpack"), PersistentDataType.INTEGER) != null) {
+            return true;
+        } else {
+            return false;
         }
-        else {return false;}
     }
 
+    public static boolean isWearingJetpack(Player player) {
+        if (player.getInventory().getChestplate() == null) {
+            return false;
+        }
+        if (player.getInventory().getChestplate().getItemMeta() == null) {
+            return false;
+        }
+        return isJetpack(player.getInventory().getChestplate().getItemMeta());
+    }
+
+    public static boolean isJetpacking(Player player) {
+        if (!isWearingJetpack(player)) {
+            return false;
+        }
+        PersistentDataContainer data = player.getPersistentDataContainer();
+        int jetpacking = data.get(new NamespacedKey(plugin, "jetpacking"), PersistentDataType.INTEGER);
+        return jetpacking == 1;
+
+    }
+    public static void setJetpacking(Player player, boolean jetpacking) {
+        int num = 0;
+        if (jetpacking){num = 1;}
+        PersistentDataContainer data = player.getPersistentDataContainer();
+        data.set(new NamespacedKey(plugin, "jetpacking"), PersistentDataType.INTEGER ,num);
+    }
 }

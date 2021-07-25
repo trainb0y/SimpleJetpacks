@@ -14,6 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class JetpackCommands implements CommandExecutor {
+    /*
+    Handles all jetpack-related commands
+     */
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

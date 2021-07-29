@@ -10,19 +10,13 @@ version '0.5.1'
 repositories {
     mavenCentral()
     maven {
-        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
-        // As of Gradle 5.1, you can limit this to only those
-        // dependencies you expect from it
-        content {
-            includeGroup 'org.bukkit'
-            includeGroup 'org.spigotmc'
-        }
+        url = 'https://papermc.io/repo/repository/maven-public/'
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    compileOnly "org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT"
+    compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
 }
 
 sourceSets {

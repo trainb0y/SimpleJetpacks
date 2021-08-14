@@ -5,8 +5,6 @@
 # Should apply on /simplejetpacks reload
 old-motion: false
 
-# Whether to check for updates on start
-check-updates: true
 
 # Fuel items are defined below, with <ID>:<Fuel Amount>
 items:

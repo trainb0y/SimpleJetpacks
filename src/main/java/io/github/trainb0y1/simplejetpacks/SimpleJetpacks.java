@@ -27,22 +27,6 @@ public class SimpleJetpacks extends JavaPlugin {
         this.saveDefaultConfig();
         Logger logger = this.getLogger();
 
-        // Check for updates
-        if (this.getConfig().getBoolean("check-updates")) {
-            new UpdateChecker(this, 92562).getVersion(newVersion -> {
-                newVersion = newVersion.replace("v", ""); // On spigot I have it listed as v0.4, v0.5 etc.
-                String currentVersion = this.getDescription().getVersion();
-                if (newVersion.equalsIgnoreCase(currentVersion)) {
-                    logger.info("Plugin is up to date!");
-                } else {
-                    logger.warning("There is a new version available!");
-                    logger.warning("Current Version: " + currentVersion);
-                    logger.warning("New Version: " + newVersion);
-                    logger.warning(("Download the latest version at https://www.spigotmc.org/resources/simplejetpacks.92562/"));
-                }
-            });
-        }
-
         // Register the stuff we need to register
         ItemManager.createJetpacks(this);
 
@@ -53,7 +37,7 @@ public class SimpleJetpacks extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JetpackFlyingListener(), this);
         getServer().getPluginManager().registerEvents(new JetpackGlideListener(), this);
 
-        this.oldMotion = this.getConfig().getBoolean("old-motion");
+        oldMotion = this.getConfig().getBoolean("old-motion");
 
         getCommand("simplejetpacks").setExecutor(new JetpackCommands());
         getCommand("kotlin").setExecutor(new KotlinCommandTest());

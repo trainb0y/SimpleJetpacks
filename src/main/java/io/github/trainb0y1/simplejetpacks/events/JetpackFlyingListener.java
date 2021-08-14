@@ -21,14 +21,6 @@ public class JetpackFlyingListener implements Listener {
             PersistentDataContainer chestplateData = chestplateMeta.getPersistentDataContainer();
 
             if (SimpleJetpacks.isJetpacking(player)) {
-                // In order to prevent glitching into the ground with the 0.5 glide movement, we have to disable jetpacking into the ground
-                if (player.getLocation().subtract(0, 1, 0).getBlock().getType() != Material.AIR){
-                    SimpleJetpacks.setJetpacking(player, false);
-                    player.setGliding(false);
-                    player.setSneaking(false); // *hopefully* this will prevent players gliding and glitching into blocks after they finish shifting
-                    return; // Stop it
-                }
-
                 int fuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER);
                 if (fuel <= 0) {
                     player.sendMessage(ChatColor.RED + "[SimpleJetpacks] Jetpack out of fuel!");

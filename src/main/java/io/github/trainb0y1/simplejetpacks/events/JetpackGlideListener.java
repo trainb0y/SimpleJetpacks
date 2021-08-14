@@ -22,6 +22,12 @@ public class JetpackGlideListener implements Listener {
             Entity entity = event.getEntity();
             if (entity instanceof Player) {
                 Player player = (Player) entity;
+                // check if the reason we are toggling is because we landed
+                if (player.getLocation().subtract(0, 1, 0).getBlock().getType() != Material.AIR){
+                    player.setSneaking(false);
+                    SimpleJetpacks.setJetpacking(player, false);
+                    return;
+                }
                 if (SimpleJetpacks.isJetpacking(player)){
                     player.setGliding(true);
                     event.setCancelled(true);

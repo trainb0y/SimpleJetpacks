@@ -2,7 +2,6 @@ package io.github.trainb0y1.simplejetpacks.commands;
 
 
 import io.github.trainb0y1.simplejetpacks.SimpleJetpacks;
-import io.github.trainb0y1.simplejetpacks.UpdateChecker;
 import io.github.trainb0y1.simplejetpacks.items.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,22 +23,6 @@ public class JetpackCommands implements CommandExecutor {
             if (args.length == 0){
                 return false; // Will return the plugin.yml usage message
             }
-            if (args[0].equalsIgnoreCase("version")){
-                new UpdateChecker(SimpleJetpacks.getPlugin(), 92562).getVersion(newVersion -> {
-                    newVersion = newVersion.replace("v", ""); // On spigot I have it listed as v0.4, v0.5 etc.
-                    String currentVersion = SimpleJetpacks.getPlugin().getDescription().getVersion();
-                    if (newVersion.equalsIgnoreCase(currentVersion)) {
-                        sender.sendMessage("Plugin is up to date! Version: "+currentVersion);
-                    } else {
-                        sender.sendMessage(ChatColor.YELLOW+ "[SimpleJetpacks] There is a new version available!");
-                        sender.sendMessage("Current Version: " + currentVersion);
-                        sender.sendMessage("New Version: " + newVersion);
-                        sender.sendMessage("Download the latest version at https://www.spigotmc.org/resources/simplejetpacks.92562/");
-                    }
-                });
-            }
-
-
 
             if (args[0].equalsIgnoreCase("give")){
                 // /simplejetpacks give

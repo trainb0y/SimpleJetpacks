@@ -21,7 +21,6 @@ public class JetpackTabComplete implements TabCompleter {
             List<String> subcommands = new ArrayList<String>();
             if(sender.hasPermission("simplejetpacks.reload")){ subcommands.add("reload"); }
             if(sender.hasPermission("simplejetpacks.give")){ subcommands.add("give"); }
-            subcommands.add("version");
             return subcommands;
 
         }

@@ -5,7 +5,7 @@ main: io.github.trainb0y1.simplejetpacks.SimpleJetpacks
 api-version: 1.16
 commands:
   simplejetpacks:
-    usage: /<command> [give | reload | version] <args>
+    usage: /<command> [give | reload] <args>
 
   kotlin:
     usage:  /<command>

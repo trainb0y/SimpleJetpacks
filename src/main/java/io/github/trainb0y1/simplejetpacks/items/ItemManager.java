@@ -58,13 +58,23 @@ public class ItemManager {
             // Particles are stored as a csv string of particle names
             item.setItemMeta(meta);
 
+            // now for the hardest part, getting the recipe from the config
             NamespacedKey key = new NamespacedKey(plugin, "jetpack" + itemKey); // Separate recipe keys for each pack
             ShapedRecipe recipe = new ShapedRecipe(key, item);
-            recipe.shape("IPI", "ICI", "IRI");
-            recipe.setIngredient('I', Material.IRON_INGOT);
-            recipe.setIngredient('P', Material.PISTON);
-            recipe.setIngredient('C', Material.getMaterial(itemKey));
-            recipe.setIngredient('R', Material.REDSTONE_BLOCK);
+            recipe.shape(
+                    config.getString("jetpacks." + itemKey + ".recipe.r1"),
+                    config.getString("jetpacks." + itemKey + ".recipe.r2"),
+                    config.getString("jetpacks." + itemKey + ".recipe.r3")
+            );
+
+            for (String craftItemKey :
+                    config.getConfigurationSection(
+                            "jetpacks." + itemKey + ".recipe.items"
+                    ).getKeys(false)){
+                // For each key, add key, item to the recipe
+                recipe.setIngredient(craftItemKey.charAt(0),
+                        Material.getMaterial(config.getString("jetpacks." + itemKey + ".recipe.items." + craftItemKey)));
+            }
 
             Bukkit.addRecipe(recipe);
 

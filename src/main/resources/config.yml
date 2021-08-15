@@ -21,6 +21,16 @@ items:
 # particles - list of particles to spawn when flying
 # sound - sound to play when flying
 # fly-speed - speed of jetpack
+#
+# recipe - this one is a little harder, recipe starts defining the recipe
+#   r1 - the first row of the crafting table, as a three character string
+#          spaces are nothing, letters get assigned to items later
+#   r2 - r1 but second row
+#   r3 - r3 but bottom row
+#   items: - starts assigning items to the letters
+#     A (or whatever letter you used in the recipe) - the item that this letter represents
+#       You need one of these for each letter you used in r1, r2, and r3
+
 
 jetpacks:
   LEATHER_CHESTPLATE:
@@ -32,6 +42,15 @@ jetpacks:
       - FLAME
       - CAMPFIRE_COSY_SMOKE
     sound: BLOCK_FIRE_AMBIENT
+    recipe:
+      r1: " R "
+      r2: "PCP"
+      r3: " I "
+      items:
+        C: "LEATHER_CHESTPLATE"
+        P: "PISTON"
+        R: "REDSTONE_BLOCK"
+        I: "IRON_INGOT"
 
 
   IRON_CHESTPLATE:
@@ -43,3 +62,13 @@ jetpacks:
       - SOUL_FIRE_FLAME
       - CAMPFIRE_COSY_SMOKE
     sound: ENTITY_CAT_PURR
+    recipe:
+      r1: "BRB"
+      r2: "PCP"
+      r3: "BAB"
+      items:
+        C: "IRON_CHESTPLATE"
+        P: "PISTON"
+        R: "REDSTONE_BLOCK"
+        A: "ANVIL"
+        B: "IRON_BLOCK"

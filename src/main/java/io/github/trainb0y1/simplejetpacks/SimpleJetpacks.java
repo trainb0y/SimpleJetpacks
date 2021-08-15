@@ -35,6 +35,7 @@ public class SimpleJetpacks extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JetpackToggleListener(), this);
         getServer().getPluginManager().registerEvents(new JetpackFlyingListener(), this);
         getServer().getPluginManager().registerEvents(new JetpackGlideListener(), this);
+        getServer().getPluginManager().registerEvents(new JetpackEnchantListener(), this);
 
         oldMotion = this.getConfig().getBoolean("old-motion");
 

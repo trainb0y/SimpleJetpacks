@@ -25,7 +25,7 @@ class JetpackEnchantListener : Listener {
             if (offer != null) { // ignore this, it is sometimes null. check doc on event.offers
                 for (enchant in blockedEnchants){
                     if (offer.enchantment == enchant){
-                        SimpleJetpacks.getPlugin().logger.warning("Blocked $enchant")
+                        //SimpleJetpacks.getPlugin().logger.warning("Blocked $enchant")
                         event.offers[i] = null //.setEnchantment(null)
                         // AGAIN, IGNORE THIS
                     }
@@ -42,10 +42,10 @@ class JetpackEnchantListener : Listener {
             Enchantment.DURABILITY
         )
         if (event.result == null){return}
-        SimpleJetpacks.getPlugin().logger.warning("Checking enchants")
+        //SimpleJetpacks.getPlugin().logger.warning("Checking enchants")
         for (enchant in blockedEnchants){
             if (enchant in event.result!!.enchantments.keys){
-                SimpleJetpacks.getPlugin().logger.warning("Blocked $enchant")
+                //SimpleJetpacks.getPlugin().logger.warning("Blocked $enchant")
                 event.result = null
             }
         }

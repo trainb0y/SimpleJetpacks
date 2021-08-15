@@ -1,6 +1,11 @@
 package io.github.trainb0y1.simplejetpacks.items;
 
 import io.github.trainb0y1.simplejetpacks.SimpleJetpacks;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -10,7 +15,6 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -21,7 +25,7 @@ public class ItemManager {
     Create and manage the jetpack itemstacks
      */
     public static ArrayList<ItemStack> jetpacks;
-    public static void createJetpacks(JavaPlugin plugin) {
+    public static void createJetpacks(SimpleJetpacks plugin) {
         jetpacks = new ArrayList<ItemStack>();
         // Iterate through all jetpacks in the config and add them to the list
         FileConfiguration config = plugin.getConfig();
@@ -38,12 +42,13 @@ public class ItemManager {
 
             ItemMeta meta = item.getItemMeta();
 
-            meta.setDisplayName("§6Jetpack");
-            List<String> lore = new ArrayList<>();
-            lore.add("§7Right click with fuel item");
-            lore.add("§7while wearing to add fuel");
-            lore.add("§7Fuel Capacity: " + maxFuel);
-            meta.setLore(lore);
+            meta.displayName(Component.text("Jetpack",NamedTextColor.GOLD));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.text("Fuel Capacity: " + maxFuel,NamedTextColor.DARK_GREEN));
+            lore.add(Component.text("Fuel Burn Rate: " + burnRate,NamedTextColor.DARK_GREEN));
+            lore.add(Component.text("Speed: " + speed,NamedTextColor.DARK_GREEN));
+            meta.lore(lore);
+
 
 
             PersistentDataContainer data = meta.getPersistentDataContainer();

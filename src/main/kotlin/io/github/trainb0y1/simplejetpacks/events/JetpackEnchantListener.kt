@@ -8,6 +8,9 @@ import org.bukkit.event.enchantment.PrepareItemEnchantEvent
 import org.bukkit.event.inventory.PrepareAnvilEvent
 
 class JetpackEnchantListener : Listener {
+    /*
+    Prevents a jetpack from being enchanted with Unbreaking or Mending
+     */
     @EventHandler
     fun jetpackTableEnchant(event: PrepareItemEnchantEvent) {
         // VERY new to kotlin, this is probably a mess

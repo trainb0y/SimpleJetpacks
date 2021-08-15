@@ -39,10 +39,10 @@ public class JetpackFlyingListener implements Listener {
                         player.setVelocity(player.getLocation().getDirection().multiply(1.2));
                     }
 
+                    for (String particle: SimpleJetpacks.getParticles(chestplateMeta)) {
+                        player.getWorld().spawnParticle(Particle.valueOf(particle), player.getLocation(), 0);
+                    }
 
-                    player.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, player.getLocation(), 0);
-                    player.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, player.getLocation(), 0);
-                    player.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, player.getLocation(), 0);
                     player.getWorld().playSound(player.getLocation(), Sound.ENTITY_CAT_PURR, 10, 1);
                     fuel -= SimpleJetpacks.getBurnRate(chestplateMeta); // but it won't because we already know its a jetpack
                     chestplateData.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, fuel);

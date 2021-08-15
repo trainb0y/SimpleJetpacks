@@ -5,6 +5,7 @@ import io.github.trainb0y1.simplejetpacks.commands.JetpackTabComplete;
 import io.github.trainb0y1.simplejetpacks.events.*;
 import io.github.trainb0y1.simplejetpacks.items.ItemManager;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -14,6 +15,8 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 
@@ -100,5 +103,16 @@ public class SimpleJetpacks extends JavaPlugin {
     public static Integer getBurnRate(ItemMeta meta){
         PersistentDataContainer data = meta.getPersistentDataContainer();
         return data.get(new NamespacedKey(plugin, "burnRate"), PersistentDataType.INTEGER);
+    }
+    @Nullable
+    public static List<String> getParticles(ItemMeta meta){
+        // Returns a string list of particle names, can be used with
+        // Particle.valueOf()
+        if (!isJetpack(meta)){
+            return null;
+        }
+        PersistentDataContainer data = meta.getPersistentDataContainer();
+        String particleString = data.get(new NamespacedKey(plugin,"particles"), PersistentDataType.STRING);
+        return Arrays.asList(particleString.split(","));
     }
 }

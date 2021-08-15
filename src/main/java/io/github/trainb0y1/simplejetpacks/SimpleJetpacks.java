@@ -1,6 +1,5 @@
 package io.github.trainb0y1.simplejetpacks;
 
-import io.github.trainb0y1.simplejetpacks.commands.KotlinCommandTest;
 import io.github.trainb0y1.simplejetpacks.commands.JetpackCommands;
 import io.github.trainb0y1.simplejetpacks.commands.JetpackTabComplete;
 import io.github.trainb0y1.simplejetpacks.events.*;
@@ -40,7 +39,6 @@ public class SimpleJetpacks extends JavaPlugin {
         oldMotion = this.getConfig().getBoolean("old-motion");
 
         getCommand("simplejetpacks").setExecutor(new JetpackCommands());
-        getCommand("kotlin").setExecutor(new KotlinCommandTest());
         getCommand("simplejetpacks").setTabCompleter(new JetpackTabComplete());
         logger.info("Plugin Enabled");
     }

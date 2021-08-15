@@ -7,11 +7,8 @@ commands:
   simplejetpacks:
     usage: /<command> [give | reload] <args>
 
-  kotlin:
-    usage:  /<command>
-
 permissions:
   simplejetpacks.give:
-    description: Allows players to give themselves jetpacks
+    description: Allows giving players jetpacks
   simplejetpacks.reload:
     description: Allows config file reload

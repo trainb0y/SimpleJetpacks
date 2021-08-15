@@ -44,9 +44,10 @@ public class JetpackFlyingListener implements Listener {
                     player.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, player.getLocation(), 0);
                     player.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, player.getLocation(), 0);
                     player.getWorld().playSound(player.getLocation(), Sound.ENTITY_CAT_PURR, 10, 1);
-                    fuel -= 1;
+                    fuel -= SimpleJetpacks.getBurnRate(chestplateMeta); // but it won't because we already know its a jetpack
                     chestplateData.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, fuel);
                     int maxFuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "maxFuel"), PersistentDataType.INTEGER);
+                    // see comment above
 
                     if (fuel == maxFuel / 10) {
                         player.sendMessage(ChatColor.GOLD + "[SimpleJetpacks] Jetpack Fuel Low!");

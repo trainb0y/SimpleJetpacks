@@ -13,6 +13,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.annotation.Nullable;
 import java.util.logging.Logger;
 
 
@@ -93,5 +94,11 @@ public class SimpleJetpacks extends JavaPlugin {
         }
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.set(new NamespacedKey(plugin, "jetpacking"), PersistentDataType.INTEGER, num);
+    }
+
+    @Nullable
+    public static Integer getBurnRate(ItemMeta meta){
+        PersistentDataContainer data = meta.getPersistentDataContainer();
+        return data.get(new NamespacedKey(plugin, "burnRate"), PersistentDataType.INTEGER);
     }
 }

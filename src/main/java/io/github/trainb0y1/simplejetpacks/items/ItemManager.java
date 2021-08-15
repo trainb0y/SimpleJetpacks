@@ -12,6 +12,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
+import javax.naming.Name;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,20 +26,27 @@ public class ItemManager {
         jetpacks = new ArrayList<ItemStack>();
         // Iterate through all jetpacks in the config and add them to the list
         for (String itemKey : SimpleJetpacks.getPlugin().getConfig().getConfigurationSection("jetpacks").getKeys(false)) {
-            int maxFuel = SimpleJetpacks.getPlugin().getConfig().getInt("jetpacks." + itemKey);
+            int maxFuel = SimpleJetpacks.getPlugin().getConfig().getInt("jetpacks." + itemKey + ".fuel-capacity");
+            int burnRate = SimpleJetpacks.getPlugin().getConfig().getInt("jetpacks." + itemKey + ".burn-rate");
+
             ItemStack item = new ItemStack(Material.getMaterial(itemKey), 1);
+
             ItemMeta meta = item.getItemMeta();
+
             meta.setDisplayName("§6Jetpack");
             List<String> lore = new ArrayList<>();
             lore.add("§7Right click with fuel item");
             lore.add("§7while wearing to add fuel");
             lore.add("§7Fuel Capacity: " + maxFuel);
             meta.setLore(lore);
+
+
             PersistentDataContainer data = meta.getPersistentDataContainer();
-            // Value is arbitrary, it just has to have this data.
+            // Value of "jetpack" is arbitrary, it just has to have this data.
             data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpack"), PersistentDataType.INTEGER, 1);
             data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, 0);
             data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "maxFuel"), PersistentDataType.INTEGER, maxFuel);
+            data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "burnRate"), PersistentDataType.INTEGER, burnRate);
 
             item.setItemMeta(meta);
 

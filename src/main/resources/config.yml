@@ -15,6 +15,14 @@ items:
 
 # Jetpacks are defined below, with <ID>:<Fuel Capacity>
 # After changing this a server restart is required to apply changes.
+#
+# fuel-capacity - the maximum amount of fuel this jetpack type can hold
+# burn-rate - the amount of fuel this type burns per tick
 jetpacks:
-  LEATHER_CHESTPLATE: 500
-  IRON_CHESTPLATE: 1000
+  LEATHER_CHESTPLATE:
+    fuel-capacity: 500
+    burn-rate: 2
+
+  IRON_CHESTPLATE:
+    fuel-capacity: 1000
+    burn-rate: 1

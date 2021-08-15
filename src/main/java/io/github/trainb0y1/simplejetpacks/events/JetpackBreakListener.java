@@ -23,14 +23,10 @@ public class JetpackBreakListener implements Listener {
         ItemStack item = event.getBrokenItem();
         if (SimpleJetpacks.isJetpack(item.getItemMeta())) {
             Material mat = item.getType();
-            // can assume its being worn if it broke, so replace it with a durability 1 one
-            player.getInventory().setChestplate(ItemManager.getJetpack(mat)); // Replace it with the same type
-            // Player has a new jetpack, set the durability to 1
-            ItemMeta meta = player.getInventory().getChestplate().getItemMeta();
-            ((Damageable) meta).setDamage(mat.getMaxDurability() - 1); // make it ALMOST broken
-            player.getInventory().getChestplate().setItemMeta(meta);
-
+            ItemMeta meta = item.getItemMeta(); // get a copy of the current meta
+            ((Damageable) meta).setDamage(mat.getMaxDurability() - 1); // but make it not broken
+            player.getInventory().setChestplate(ItemManager.getJetpack(mat)); // give the player a new jetpack
+            player.getInventory().getChestplate().setItemMeta(meta); // and apply the old jetpack's meta
         }
-
     }
 }

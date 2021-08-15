@@ -44,13 +44,6 @@ public class SimpleJetpacks extends JavaPlugin {
         logger.info("Plugin Enabled");
     }
 
-    @Override
-    public void onDisable() {
-        // Send disable message
-        Logger logger = plugin.getLogger();
-        logger.info("Plugin Disabled");
-
-    }
 
     public static SimpleJetpacks getPlugin() {
         return plugin;

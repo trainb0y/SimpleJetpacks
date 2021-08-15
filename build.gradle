@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'io.github.trainb0y1'
-version '0.5.2'
+version '0.6'
 
 repositories {
     mavenCentral()

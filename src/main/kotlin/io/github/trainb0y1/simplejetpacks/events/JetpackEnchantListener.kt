@@ -9,10 +9,12 @@ import org.bukkit.event.inventory.PrepareAnvilEvent
 
 class JetpackEnchantListener : Listener {
     @EventHandler
-    fun jetpackTableEnchant(event: PrepareItemEnchantEvent){
+    fun jetpackTableEnchant(event: PrepareItemEnchantEvent) {
         // VERY new to kotlin, this is probably a mess
         val itemMeta = event.item.itemMeta
-        if (!SimpleJetpacks.isJetpack(itemMeta)){return}
+        if (!SimpleJetpacks.isJetpack(itemMeta)) {
+            return
+        }
         // We need to deny mending and unbreaking from the enchantment table
         // Having them doesn't break the plugin, but
         // neither do anything when applied to a jetpack
@@ -20,11 +22,11 @@ class JetpackEnchantListener : Listener {
             Enchantment.MENDING,
             Enchantment.DURABILITY
         )
-        for (i in 0..2){
+        for (i in 0..2) {
             val offer = event.offers[i]
             if (offer != null) { // ignore this, it is sometimes null. check doc on event.offers
-                for (enchant in blockedEnchants){
-                    if (offer.enchantment == enchant){
+                for (enchant in blockedEnchants) {
+                    if (offer.enchantment == enchant) {
                         //SimpleJetpacks.getPlugin().logger.warning("Blocked $enchant")
                         event.offers[i] = null //.setEnchantment(null)
                         // AGAIN, IGNORE THIS
@@ -33,18 +35,23 @@ class JetpackEnchantListener : Listener {
             }
         }
     }
+
     @EventHandler
-    fun jetpackAnvilEnchant(event: PrepareAnvilEvent){
+    fun jetpackAnvilEnchant(event: PrepareAnvilEvent) {
         val itemMeta = event.inventory.firstItem?.itemMeta
-        if (itemMeta == null || !SimpleJetpacks.isJetpack(itemMeta)){return}
+        if (itemMeta == null || !SimpleJetpacks.isJetpack(itemMeta)) {
+            return
+        }
         val blockedEnchants = listOf(
             Enchantment.MENDING,
             Enchantment.DURABILITY
         )
-        if (event.result == null){return}
+        if (event.result == null) {
+            return
+        }
         //SimpleJetpacks.getPlugin().logger.warning("Checking enchants")
-        for (enchant in blockedEnchants){
-            if (enchant in event.result!!.enchantments.keys){
+        for (enchant in blockedEnchants) {
+            if (enchant in event.result!!.enchantments.keys) {
                 //SimpleJetpacks.getPlugin().logger.warning("Blocked $enchant")
                 event.result = null
             }

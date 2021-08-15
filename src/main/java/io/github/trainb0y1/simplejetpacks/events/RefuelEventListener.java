@@ -22,38 +22,37 @@ public class RefuelEventListener implements Listener {
         item to jetpack fueling
      */
     @EventHandler
-    public void onRefuel(PlayerInteractEvent event){
+    public void onRefuel(PlayerInteractEvent event) {
         // If the player right click with coal, fuel up by 100
         Player player = event.getPlayer();
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (SimpleJetpacks.isWearingJetpack(player) && event.getItem() != null) {
                 ItemMeta chestplateMeta = player.getInventory().getChestplate().getItemMeta();
                 PersistentDataContainer chestplateData = chestplateMeta.getPersistentDataContainer();
-                int maxFuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(),"maxFuel"), PersistentDataType.INTEGER);
-                int fuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(),"fuel"), PersistentDataType.INTEGER);
+                int maxFuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "maxFuel"), PersistentDataType.INTEGER);
+                int fuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER);
 
                 // First check if they are wearing a jetpack for fuel transfer
-                if (SimpleJetpacks.isJetpack(event.getItem().getItemMeta())){
-                    if (fuel == maxFuel){ // I would put this up above when we first get maxFuel but then it will do it on a right click with ANY item
-                        player.sendMessage(ChatColor.GREEN+"[SimpleJetpacks] Fuel already full!");
+                if (SimpleJetpacks.isJetpack(event.getItem().getItemMeta())) {
+                    if (fuel == maxFuel) { // I would put this up above when we first get maxFuel but then it will do it on a right click with ANY item
+                        player.sendMessage(ChatColor.GREEN + "[SimpleJetpacks] Fuel already full!");
                         return;
                     }
                     ItemMeta heldJetpackMeta = event.getItem().getItemMeta();
                     PersistentDataContainer heldJetpackData = heldJetpackMeta.getPersistentDataContainer();
-                    int fuelHeld = heldJetpackData.get(new NamespacedKey(SimpleJetpacks.getPlugin(),"fuel"), PersistentDataType.INTEGER);
-                    int heldMaxFuel = heldJetpackData.get(new NamespacedKey(SimpleJetpacks.getPlugin(),"maxFuel"), PersistentDataType.INTEGER);
+                    int fuelHeld = heldJetpackData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER);
+                    int heldMaxFuel = heldJetpackData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "maxFuel"), PersistentDataType.INTEGER);
                     int neededFuel = maxFuel - fuel;
-                    if (neededFuel > fuelHeld){
+                    if (neededFuel > fuelHeld) {
                         fuel += fuelHeld;
-                        player.sendMessage(ChatColor.GREEN+"[SimpleJetpacks] +"+fuelHeld + " fuel!");
+                        player.sendMessage(ChatColor.GREEN + "[SimpleJetpacks] +" + fuelHeld + " fuel!");
                         fuelHeld = 0;
-                    }
-                    else{
+                    } else {
                         fuel = maxFuel;
                         fuelHeld -= neededFuel;
-                        player.sendMessage(ChatColor.GREEN+"[SimpleJetpacks] Jetpack refilled, fuel remaining: "+fuelHeld);
+                        player.sendMessage(ChatColor.GREEN + "[SimpleJetpacks] Jetpack refilled, fuel remaining: " + fuelHeld);
                     }
-                    heldJetpackData.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"fuel"), PersistentDataType.INTEGER, fuelHeld);
+                    heldJetpackData.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, fuelHeld);
                     Short heldDurability = event.getItem().getType().getMaxDurability();
                     ((Damageable) heldJetpackMeta).setDamage(Math.round(heldDurability - (((float) fuelHeld / heldMaxFuel) * heldDurability)));
                     event.getItem().setItemMeta(heldJetpackMeta); // update held jetpack
@@ -63,8 +62,8 @@ public class RefuelEventListener implements Listener {
                 // Can't use foreach because "java: local variables referenced from a lambda expression must be final or effectively final"
                 for (String key : SimpleJetpacks.getPlugin().getConfig().getConfigurationSection("items").getKeys(false)) {
                     if (key.equalsIgnoreCase(event.getItem().getType().toString())) {
-                        if (fuel == maxFuel){ // I would put this up above when we first get maxFuel but then it will do it on a right click with ANY item
-                            player.sendMessage(ChatColor.GREEN+"[SimpleJetpacks] Fuel already full!");
+                        if (fuel == maxFuel) { // I would put this up above when we first get maxFuel but then it will do it on a right click with ANY item
+                            player.sendMessage(ChatColor.GREEN + "[SimpleJetpacks] Fuel already full!");
                             return;
                         }
 
@@ -82,7 +81,7 @@ public class RefuelEventListener implements Listener {
                         player.getInventory().setItemInMainHand(hand);
                     }
                 }
-                SimpleJetpacks.updateFuel(player.getInventory().getChestplate(),fuel);
+                SimpleJetpacks.updateFuel(player.getInventory().getChestplate(), fuel);
             }
         }
     }

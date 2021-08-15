@@ -19,19 +19,19 @@ public class JetpackCommands implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("simplejetpacks")){
-            if (args.length == 0){
+        if (cmd.getName().equalsIgnoreCase("simplejetpacks")) {
+            if (args.length == 0) {
                 return false; // Will return the plugin.yml usage message
             }
 
-            if (args[0].equalsIgnoreCase("give")){
+            if (args[0].equalsIgnoreCase("give")) {
                 // /simplejetpacks give
-                if (!sender.hasPermission("simplejetpacks.give")){
+                if (!sender.hasPermission("simplejetpacks.give")) {
                     sender.sendMessage(ChatColor.RED + "You do not have the permission simplejetpacks.give!");
                     return true;
                 }
                 if (args.length != 3) {
-                    sender.sendMessage(ChatColor.RED+"Incorrect number of arguments for Give! \nUsage: /simplejetpacks give <player> <type>");
+                    sender.sendMessage(ChatColor.RED + "Incorrect number of arguments for Give! \nUsage: /simplejetpacks give <player> <type>");
                     return true;
                 }
 
@@ -45,29 +45,28 @@ public class JetpackCommands implements CommandExecutor {
                 // get the specified jetpack type
                 ItemStack pack = ItemManager.getJetpack(Material.getMaterial(args[2].toUpperCase()));
                 if (pack == null) {
-                    sender.sendMessage(ChatColor.RED + "[SimpleJetpacks] "+args[2]+" is not a valid jetpack type.\n Available Jetpacks:");
-                    for (ItemStack jetpack: ItemManager.jetpacks){
+                    sender.sendMessage(ChatColor.RED + "[SimpleJetpacks] " + args[2] + " is not a valid jetpack type.\n Available Jetpacks:");
+                    for (ItemStack jetpack : ItemManager.jetpacks) {
                         sender.sendMessage(ChatColor.RED + "    " + jetpack.getType());
                     }
                     return true;
                 }
 
                 player.getInventory().addItem(pack);
-                sender.sendMessage(ChatColor.GREEN + "[SimpleJetpacks] Gave 1 jetpack of type "+args[2]+" to player "+args[1]);
+                sender.sendMessage(ChatColor.GREEN + "[SimpleJetpacks] Gave 1 jetpack of type " + args[2] + " to player " + args[1]);
                 return true;
             }
 
 
-
             // Config file reload command
-            if (args[0].equalsIgnoreCase("reload")){
-                if (!sender.hasPermission("simplejetpacks.reload")){
+            if (args[0].equalsIgnoreCase("reload")) {
+                if (!sender.hasPermission("simplejetpacks.reload")) {
                     sender.sendMessage(ChatColor.RED + "You do not have the permission simplejetpacks.reload!");
                     return true;
                 }
                 SimpleJetpacks.getPlugin().reloadConfig(); // reload the config
                 SimpleJetpacks.oldMotion = SimpleJetpacks.getPlugin().getConfig().getBoolean("old-motion");
-                sender.sendMessage(ChatColor.GREEN+"[SimpleJetpacks] Config reloaded! If you defined a new jetpack, a server restart is required to apply changes.");
+                sender.sendMessage(ChatColor.GREEN + "[SimpleJetpacks] Config reloaded! If you defined a new jetpack, a server restart is required to apply changes.");
             }
         }
         return true;

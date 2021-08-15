@@ -42,7 +42,7 @@ public class ItemManager {
 
             item.setItemMeta(meta);
 
-            NamespacedKey key = new NamespacedKey(plugin, "jetpack"+itemKey); // Separate recipe keys for each pack
+            NamespacedKey key = new NamespacedKey(plugin, "jetpack" + itemKey); // Separate recipe keys for each pack
             ShapedRecipe recipe = new ShapedRecipe(key, item);
             recipe.shape("IPI", "ICI", "IRI");
             recipe.setIngredient('I', Material.IRON_INGOT);
@@ -54,14 +54,15 @@ public class ItemManager {
 
             jetpacks.add(item);
         }
-        if (jetpacks == null){
+        if (jetpacks == null) {
             SimpleJetpacks.getPlugin().getLogger().warning("No jetpacks defined! Define one in config.yml");
         }
     }
+
     @Nullable
-    public static ItemStack getJetpack(Material baseItem){
-        for (ItemStack item: jetpacks){
-            if (item.getType().equals(baseItem)){
+    public static ItemStack getJetpack(Material baseItem) {
+        for (ItemStack item : jetpacks) {
+            if (item.getType().equals(baseItem)) {
                 return item;
             }
         }

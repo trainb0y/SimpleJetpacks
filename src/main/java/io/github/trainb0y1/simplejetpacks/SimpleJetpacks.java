@@ -85,10 +85,13 @@ public class SimpleJetpacks extends JavaPlugin {
         return jetpacking == 1;
 
     }
+
     public static void setJetpacking(Player player, boolean jetpacking) {
         int num = 0;
-        if (jetpacking){num = 1;}
+        if (jetpacking) {
+            num = 1;
+        }
         PersistentDataContainer data = player.getPersistentDataContainer();
-        data.set(new NamespacedKey(plugin, "jetpacking"), PersistentDataType.INTEGER ,num);
+        data.set(new NamespacedKey(plugin, "jetpacking"), PersistentDataType.INTEGER, num);
     }
 }

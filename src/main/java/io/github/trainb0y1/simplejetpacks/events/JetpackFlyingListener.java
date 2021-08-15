@@ -1,7 +1,10 @@
 package io.github.trainb0y1.simplejetpacks.events;
 
 import io.github.trainb0y1.simplejetpacks.SimpleJetpacks;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,16 +27,15 @@ public class JetpackFlyingListener implements Listener {
                 int fuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER);
                 if (fuel <= 0) {
                     player.sendMessage(ChatColor.RED + "[SimpleJetpacks] Jetpack out of fuel!");
-                    SimpleJetpacks.setJetpacking(player,false);
+                    SimpleJetpacks.setJetpacking(player, false);
                     // Stop jetpacking to prevent empty jetpack from being free elytra and prevent spam
                     player.setGliding(false);
                     player.setSneaking(false);
                 } else {
                     //
-                    if (SimpleJetpacks.oldMotion){
+                    if (SimpleJetpacks.oldMotion) {
                         player.setVelocity(player.getLocation().getDirection().multiply(1.2).setY(0.5));
-                    }
-                    else {
+                    } else {
                         player.setVelocity(player.getLocation().getDirection().multiply(1.2));
                     }
 
@@ -44,14 +46,14 @@ public class JetpackFlyingListener implements Listener {
                     player.getWorld().playSound(player.getLocation(), Sound.ENTITY_CAT_PURR, 10, 1);
                     fuel -= 1;
                     chestplateData.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, fuel);
-                    int maxFuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(),"maxFuel"),PersistentDataType.INTEGER);
+                    int maxFuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "maxFuel"), PersistentDataType.INTEGER);
 
                     if (fuel == maxFuel / 10) {
                         player.sendMessage(ChatColor.GOLD + "[SimpleJetpacks] Jetpack Fuel Low!");
                     }
 
 
-                    SimpleJetpacks.updateFuel(player.getInventory().getChestplate(),fuel);
+                    SimpleJetpacks.updateFuel(player.getInventory().getChestplate(), fuel);
                 }
             }
         }

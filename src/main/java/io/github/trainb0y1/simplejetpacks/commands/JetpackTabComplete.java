@@ -16,16 +16,20 @@ public class JetpackTabComplete implements TabCompleter {
     Command argument autocomplete
      */
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args){
-        if (args.length == 1){
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
+        if (args.length == 1) {
             List<String> subcommands = new ArrayList<String>();
-            if(sender.hasPermission("simplejetpacks.reload")){ subcommands.add("reload"); }
-            if(sender.hasPermission("simplejetpacks.give")){ subcommands.add("give"); }
+            if (sender.hasPermission("simplejetpacks.reload")) {
+                subcommands.add("reload");
+            }
+            if (sender.hasPermission("simplejetpacks.give")) {
+                subcommands.add("give");
+            }
             return subcommands;
 
         }
-        if (args.length == 2){
-            if (args[0].equalsIgnoreCase("give") && sender.hasPermission("simplejetpacks.give")){
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("give") && sender.hasPermission("simplejetpacks.give")) {
                 // We need to send a list of players
                 List<String> playerNames = new ArrayList<String>();
                 Player[] players = new Player[SimpleJetpacks.getPlugin().getServer().getOnlinePlayers().size()];
@@ -37,10 +41,10 @@ public class JetpackTabComplete implements TabCompleter {
             }
         }
         if (args.length == 3) {
-            if (args[0].equalsIgnoreCase("give") && sender.hasPermission("simplejetpacks.give")){
+            if (args[0].equalsIgnoreCase("give") && sender.hasPermission("simplejetpacks.give")) {
                 // We need to send a list of jetpack types
                 List<String> jetpackTypes = new ArrayList<String>();
-                for (ItemStack jetpack: ItemManager.jetpacks){
+                for (ItemStack jetpack : ItemManager.jetpacks) {
                     jetpackTypes.add(jetpack.getType().toString());
                 }
                 return jetpackTypes;

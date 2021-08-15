@@ -5,7 +5,6 @@ import io.github.trainb0y1.simplejetpacks.commands.JetpackTabComplete;
 import io.github.trainb0y1.simplejetpacks.events.*;
 import io.github.trainb0y1.simplejetpacks.items.ItemManager;
 import org.bukkit.NamespacedKey;
-import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;

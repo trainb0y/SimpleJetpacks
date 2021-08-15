@@ -70,11 +70,7 @@ public class SimpleJetpacks extends JavaPlugin {
     public static boolean isJetpack(ItemMeta meta) {
         // Check if the meta has the jetpack data
         PersistentDataContainer data = meta.getPersistentDataContainer();
-        if (data.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpack"), PersistentDataType.INTEGER) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return data.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpack"), PersistentDataType.INTEGER) != null;
     }
 
     public static boolean isWearingJetpack(Player player) {

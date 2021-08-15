@@ -47,7 +47,7 @@ public class JetpackCommands implements CommandExecutor {
                 if (pack == null) {
                     sender.sendMessage(ChatColor.RED + "[SimpleJetpacks] "+args[2]+" is not a valid jetpack type.\n Available Jetpacks:");
                     for (ItemStack jetpack: ItemManager.jetpacks){
-                        sender.sendMessage(ChatColor.RED + "    " + jetpack.getType().toString());
+                        sender.sendMessage(ChatColor.RED + "    " + jetpack.getType());
                     }
                     return true;
                 }

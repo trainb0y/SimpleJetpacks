@@ -20,10 +20,13 @@ items:
 # burn-rate - the amount of fuel this type burns per tick
 # particles - list of particles to spawn when flying
 # sound - sound to play when flying
+# fly-speed - speed of jetpack
+
 jetpacks:
   LEATHER_CHESTPLATE:
     fuel-capacity: 500
     burn-rate: 2
+    fly-speed: 0.8
     particles:
       - FLAME
       - FLAME
@@ -34,6 +37,7 @@ jetpacks:
   IRON_CHESTPLATE:
     fuel-capacity: 1000
     burn-rate: 1
+    fly-speed: 1.2
     particles:
       - SOUL_FIRE_FLAME
       - SOUL_FIRE_FLAME

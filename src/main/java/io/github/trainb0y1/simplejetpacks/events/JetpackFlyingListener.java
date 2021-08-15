@@ -32,11 +32,13 @@ public class JetpackFlyingListener implements Listener {
                     player.setGliding(false);
                     player.setSneaking(false);
                 } else {
-                    //
+
+                    Float speed = SimpleJetpacks.getJetpackSpeed(chestplateMeta);
+
                     if (SimpleJetpacks.oldMotion) {
-                        player.setVelocity(player.getLocation().getDirection().multiply(1.2).setY(0.5));
+                        player.setVelocity(player.getLocation().getDirection().multiply(speed).setY(0.5));
                     } else {
-                        player.setVelocity(player.getLocation().getDirection().multiply(1.2));
+                        player.setVelocity(player.getLocation().getDirection().multiply(speed));
                     }
 
                     for (String particle: SimpleJetpacks.getParticles(chestplateMeta)) {

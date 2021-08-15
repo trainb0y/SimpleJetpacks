@@ -103,6 +103,13 @@ public class SimpleJetpacks extends JavaPlugin {
         PersistentDataContainer data = meta.getPersistentDataContainer();
         return data.get(new NamespacedKey(plugin, "burnRate"), PersistentDataType.INTEGER);
     }
+
+    @Nullable
+    public static Float getJetpackSpeed(ItemMeta meta){
+        PersistentDataContainer data = meta.getPersistentDataContainer();
+        return data.get(new NamespacedKey(plugin, "speed"), PersistentDataType.FLOAT);
+    }
+
     @Nullable
     public static List<String> getParticles(ItemMeta meta){
         // Returns a string list of particle names, can be used with

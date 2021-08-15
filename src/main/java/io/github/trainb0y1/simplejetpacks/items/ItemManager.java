@@ -26,6 +26,7 @@ public class ItemManager {
         for (String itemKey : SimpleJetpacks.getPlugin().getConfig().getConfigurationSection("jetpacks").getKeys(false)) {
             int maxFuel = SimpleJetpacks.getPlugin().getConfig().getInt("jetpacks." + itemKey + ".fuel-capacity");
             int burnRate = SimpleJetpacks.getPlugin().getConfig().getInt("jetpacks." + itemKey + ".burn-rate");
+            float speed = (float) SimpleJetpacks.getPlugin().getConfig().getDouble("jetpacks." + itemKey + ".fly-speed");
             List<String> particles = SimpleJetpacks.getPlugin().getConfig().getStringList("jetpacks." + itemKey + ".particles");
 
 
@@ -49,6 +50,7 @@ public class ItemManager {
             data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, 0);
             data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "maxFuel"), PersistentDataType.INTEGER, maxFuel);
             data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "burnRate"), PersistentDataType.INTEGER, burnRate);
+            data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "speed"), PersistentDataType.FLOAT, speed);
             data.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"particles"), PersistentDataType.STRING, String.join(",",particles));
             // Particles are stored as a csv string of particle names
             item.setItemMeta(meta);

@@ -4,6 +4,7 @@ import io.github.trainb0y1.simplejetpacks.SimpleJetpacks;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -23,13 +24,14 @@ public class ItemManager {
     public static void createJetpacks(JavaPlugin plugin) {
         jetpacks = new ArrayList<ItemStack>();
         // Iterate through all jetpacks in the config and add them to the list
-        for (String itemKey : SimpleJetpacks.getPlugin().getConfig().getConfigurationSection("jetpacks").getKeys(false)) {
-            int maxFuel = SimpleJetpacks.getPlugin().getConfig().getInt("jetpacks." + itemKey + ".fuel-capacity");
-            int burnRate = SimpleJetpacks.getPlugin().getConfig().getInt("jetpacks." + itemKey + ".burn-rate");
-            float speed = (float) SimpleJetpacks.getPlugin().getConfig().getDouble("jetpacks." + itemKey + ".fly-speed");
-            List<String> particles = SimpleJetpacks.getPlugin().getConfig().getStringList("jetpacks." + itemKey + ".particles");
+        FileConfiguration config = plugin.getConfig();
 
-
+        for (String itemKey : config.getConfigurationSection("jetpacks").getKeys(false)) {
+            int maxFuel = config.getInt("jetpacks." + itemKey + ".fuel-capacity");
+            int burnRate = config.getInt("jetpacks." + itemKey + ".burn-rate");
+            float speed = (float) config.getDouble("jetpacks." + itemKey + ".fly-speed");
+            String sound = config.getString("jetpacks." + itemKey + ".sound");
+            List<String> particles = config.getStringList("jetpacks." + itemKey + ".particles");
 
 
             ItemStack item = new ItemStack(Material.getMaterial(itemKey), 1);
@@ -46,12 +48,13 @@ public class ItemManager {
 
             PersistentDataContainer data = meta.getPersistentDataContainer();
             // Value of "jetpack" is arbitrary, it just has to have this data.
-            data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "jetpack"), PersistentDataType.INTEGER, 1);
-            data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, 0);
-            data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "maxFuel"), PersistentDataType.INTEGER, maxFuel);
-            data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "burnRate"), PersistentDataType.INTEGER, burnRate);
-            data.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "speed"), PersistentDataType.FLOAT, speed);
-            data.set(new NamespacedKey(SimpleJetpacks.getPlugin(),"particles"), PersistentDataType.STRING, String.join(",",particles));
+            data.set(new NamespacedKey(plugin, "jetpack"), PersistentDataType.INTEGER, 1);
+            data.set(new NamespacedKey(plugin, "fuel"), PersistentDataType.INTEGER, 0);
+            data.set(new NamespacedKey(plugin, "maxFuel"), PersistentDataType.INTEGER, maxFuel);
+            data.set(new NamespacedKey(plugin, "burnRate"), PersistentDataType.INTEGER, burnRate);
+            data.set(new NamespacedKey(plugin, "speed"), PersistentDataType.FLOAT, speed);
+            data.set(new NamespacedKey(plugin, "sound"), PersistentDataType.STRING, sound);
+            data.set(new NamespacedKey(plugin,"particles"), PersistentDataType.STRING, String.join(",",particles));
             // Particles are stored as a csv string of particle names
             item.setItemMeta(meta);
 
@@ -68,7 +71,7 @@ public class ItemManager {
             jetpacks.add(item);
         }
         if (jetpacks == null) {
-            SimpleJetpacks.getPlugin().getLogger().warning("No jetpacks defined! Define one in config.yml");
+            plugin.getLogger().warning("No jetpacks defined! Define one in config.yml");
         }
     }
 

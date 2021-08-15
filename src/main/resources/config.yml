@@ -31,7 +31,7 @@ jetpacks:
       - FLAME
       - FLAME
       - CAMPFIRE_COSY_SMOKE
-    sound: ENTITY_CAT_PURR
+    sound: BLOCK_FIRE_AMBIENT
 
 
   IRON_CHESTPLATE:

@@ -111,6 +111,12 @@ public class SimpleJetpacks extends JavaPlugin {
     }
 
     @Nullable
+    public static String getJetpackSound(ItemMeta meta){
+        PersistentDataContainer data = meta.getPersistentDataContainer();
+        return data.get(new NamespacedKey(plugin, "sound"), PersistentDataType.STRING);
+    }
+
+    @Nullable
     public static List<String> getParticles(ItemMeta meta){
         // Returns a string list of particle names, can be used with
         // Particle.valueOf()

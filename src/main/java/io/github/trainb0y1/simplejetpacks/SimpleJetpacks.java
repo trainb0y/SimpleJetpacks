@@ -99,32 +99,32 @@ public class SimpleJetpacks extends JavaPlugin {
     }
 
     @Nullable
-    public static Integer getBurnRate(ItemMeta meta){
+    public static Integer getBurnRate(ItemMeta meta) {
         PersistentDataContainer data = meta.getPersistentDataContainer();
         return data.get(new NamespacedKey(plugin, "burnRate"), PersistentDataType.INTEGER);
     }
 
     @Nullable
-    public static Float getJetpackSpeed(ItemMeta meta){
+    public static Float getJetpackSpeed(ItemMeta meta) {
         PersistentDataContainer data = meta.getPersistentDataContainer();
         return data.get(new NamespacedKey(plugin, "speed"), PersistentDataType.FLOAT);
     }
 
     @Nullable
-    public static String getJetpackSound(ItemMeta meta){
+    public static String getJetpackSound(ItemMeta meta) {
         PersistentDataContainer data = meta.getPersistentDataContainer();
         return data.get(new NamespacedKey(plugin, "sound"), PersistentDataType.STRING);
     }
 
     @Nullable
-    public static List<String> getParticles(ItemMeta meta){
+    public static List<String> getParticles(ItemMeta meta) {
         // Returns a string list of particle names, can be used with
         // Particle.valueOf()
-        if (!isJetpack(meta)){
+        if (!isJetpack(meta)) {
             return null;
         }
         PersistentDataContainer data = meta.getPersistentDataContainer();
-        String particleString = data.get(new NamespacedKey(plugin,"particles"), PersistentDataType.STRING);
+        String particleString = data.get(new NamespacedKey(plugin, "particles"), PersistentDataType.STRING);
         return Arrays.asList(particleString.split(","));
     }
 }

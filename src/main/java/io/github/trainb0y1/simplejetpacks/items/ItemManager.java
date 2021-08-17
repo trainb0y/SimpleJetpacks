@@ -2,10 +2,7 @@ package io.github.trainb0y1.simplejetpacks.items;
 
 import io.github.trainb0y1.simplejetpacks.SimpleJetpacks;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -25,6 +22,7 @@ public class ItemManager {
     Create and manage the jetpack itemstacks
      */
     public static ArrayList<ItemStack> jetpacks;
+
     public static void createJetpacks(SimpleJetpacks plugin) {
         jetpacks = new ArrayList<ItemStack>();
         // Iterate through all jetpacks in the config and add them to the list
@@ -42,13 +40,12 @@ public class ItemManager {
 
             ItemMeta meta = item.getItemMeta();
 
-            meta.displayName(Component.text("Jetpack",NamedTextColor.GOLD));
+            meta.displayName(Component.text("Jetpack", NamedTextColor.GOLD));
             List<Component> lore = new ArrayList<>();
-            lore.add(Component.text("Fuel Capacity: " + maxFuel,NamedTextColor.DARK_GREEN));
-            lore.add(Component.text("Fuel Burn Rate: " + burnRate,NamedTextColor.DARK_GREEN));
-            lore.add(Component.text("Speed: " + speed,NamedTextColor.DARK_GREEN));
+            lore.add(Component.text("Fuel Capacity: " + maxFuel, NamedTextColor.DARK_GREEN));
+            lore.add(Component.text("Fuel Burn Rate: " + burnRate, NamedTextColor.DARK_GREEN));
+            lore.add(Component.text("Speed: " + speed, NamedTextColor.DARK_GREEN));
             meta.lore(lore);
-
 
 
             PersistentDataContainer data = meta.getPersistentDataContainer();
@@ -59,7 +56,7 @@ public class ItemManager {
             data.set(new NamespacedKey(plugin, "burnRate"), PersistentDataType.INTEGER, burnRate);
             data.set(new NamespacedKey(plugin, "speed"), PersistentDataType.FLOAT, speed);
             data.set(new NamespacedKey(plugin, "sound"), PersistentDataType.STRING, sound);
-            data.set(new NamespacedKey(plugin,"particles"), PersistentDataType.STRING, String.join(",",particles));
+            data.set(new NamespacedKey(plugin, "particles"), PersistentDataType.STRING, String.join(",", particles));
             // Particles are stored as a csv string of particle names
             item.setItemMeta(meta);
 
@@ -75,7 +72,7 @@ public class ItemManager {
             for (String craftItemKey :
                     config.getConfigurationSection(
                             "jetpacks." + itemKey + ".recipe.items"
-                    ).getKeys(false)){
+                    ).getKeys(false)) {
                 // For each key, add key, item to the recipe
                 recipe.setIngredient(craftItemKey.charAt(0),
                         Material.getMaterial(config.getString("jetpacks." + itemKey + ".recipe.items." + craftItemKey)));

@@ -41,7 +41,7 @@ public class JetpackFlyingListener implements Listener {
                         player.setVelocity(player.getLocation().getDirection().multiply(speed));
                     }
 
-                    for (String particle: SimpleJetpacks.getParticles(chestplateMeta)) {
+                    for (String particle : SimpleJetpacks.getParticles(chestplateMeta)) {
                         player.getWorld().spawnParticle(Particle.valueOf(particle), player.getLocation(), 0);
                     }
 

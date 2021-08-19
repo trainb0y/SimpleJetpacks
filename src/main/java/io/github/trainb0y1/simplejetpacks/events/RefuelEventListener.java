@@ -35,10 +35,8 @@ public class RefuelEventListener implements Listener {
             return;
         }
         ItemStack chestplate = player.getInventory().getChestplate();
-        ItemMeta chestplateMeta = chestplate.getItemMeta();
 
-        PersistentDataContainer chestplateData = chestplateMeta.getPersistentDataContainer();
-        int maxFuel = chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "maxFuel"), PersistentDataType.INTEGER);
+        int maxFuel = SimpleJetpacks.getMaxFuel(chestplate);
         int fuel = SimpleJetpacks.getFuel(chestplate);
 
         // First check if they are holding a jetpack for fuel transfer
@@ -62,10 +60,7 @@ public class RefuelEventListener implements Listener {
                 fuelHeld -= neededFuel;
                 player.sendMessage(ChatColor.GREEN + "[SimpleJetpacks] Jetpack refilled, fuel remaining: " + fuelHeld);
             }
-            heldJetpackData.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, fuelHeld);
-            Short heldDurability = event.getItem().getType().getMaxDurability();
-            ((Damageable) heldJetpackMeta).setDamage(Math.round(heldDurability - (((float) fuelHeld / heldMaxFuel) * heldDurability)));
-            event.getItem().setItemMeta(heldJetpackMeta); // update held jetpack
+            SimpleJetpacks.setFuel(heldJetpack, fuelHeld);
         }
 
         // They are wearing a jetpack, but not holding one. Find out if they are holding a fuel item

@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nullable;
@@ -31,16 +32,24 @@ public class SimpleJetpacks extends JavaPlugin {
 
         // Register the stuff we need to register
         ItemManager.createJetpacks(this);
+        PluginManager manager = getServer().getPluginManager();
 
-        getServer().getPluginManager().registerEvents(new RefuelEventListener(), this);
-        getServer().getPluginManager().registerEvents(new JetpackFlyKickListener(), this);
-        getServer().getPluginManager().registerEvents(new JetpackBreakListener(), this);
-        getServer().getPluginManager().registerEvents(new JetpackToggleListener(), this);
-        getServer().getPluginManager().registerEvents(new JetpackFlyingListener(), this);
-        getServer().getPluginManager().registerEvents(new JetpackGlideListener(), this);
-        getServer().getPluginManager().registerEvents(new JetpackEnchantListener(), this);
+        manager.registerEvents(new RefuelEventListener(), this);
+        manager.registerEvents(new JetpackFlyKickListener(), this);
+        manager.registerEvents(new JetpackBreakListener(), this);
+        manager.registerEvents(new JetpackToggleListener(), this);
+        manager.registerEvents(new JetpackFlyingListener(), this);
+        manager.registerEvents(new JetpackGlideListener(), this);
+        manager.registerEvents(new JetpackEnchantListener(), this);
 
         oldMotion = this.getConfig().getBoolean("old-motion");
+
+        if (this.getConfig().getBoolean("fuel-gui")){
+            manager.registerEvents(new RefuelGUI(), this);
+        }
+        else {
+            manager.registerEvents(new RefuelEventListener(), this);
+        }
 
         getCommand("simplejetpacks").setExecutor(new JetpackCommands());
         getCommand("simplejetpacks").setTabCompleter(new JetpackTabComplete());
@@ -48,11 +57,15 @@ public class SimpleJetpacks extends JavaPlugin {
     }
 
 
+
+
+    // Various utility functions
+
     public static SimpleJetpacks getPlugin() {
         return plugin;
     }
 
-    public static void updateFuel(ItemStack item, int fuel) {
+    public static void setFuel(ItemStack item, int fuel) {
         // Update the bar and the persistentdatacontainer
         ItemMeta chestplateMeta = item.getItemMeta();
         PersistentDataContainer chestplateData = chestplateMeta.getPersistentDataContainer();
@@ -61,6 +74,20 @@ public class SimpleJetpacks extends JavaPlugin {
         chestplateData.set(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER, fuel);
         ((Damageable) chestplateMeta).setDamage(Math.round(durability - (((float) fuel / maxFuel) * durability))); // update durability bar
         item.setItemMeta(chestplateMeta); // update worn jetpack
+    }
+
+    @Nullable
+    public static Integer getFuel(ItemStack jetpack){
+        ItemMeta chestplateMeta = jetpack.getItemMeta();
+        PersistentDataContainer chestplateData = chestplateMeta.getPersistentDataContainer();
+        return chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "fuel"), PersistentDataType.INTEGER);
+    }
+
+    @Nullable
+    public static Integer getMaxFuel(ItemStack jetpack) {
+        ItemMeta chestplateMeta = jetpack.getItemMeta();
+        PersistentDataContainer chestplateData = chestplateMeta.getPersistentDataContainer();
+        return chestplateData.get(new NamespacedKey(SimpleJetpacks.getPlugin(), "maxFuel"), PersistentDataType.INTEGER);
     }
 
     public static boolean isJetpack(ItemMeta meta) {
@@ -84,8 +111,14 @@ public class SimpleJetpacks extends JavaPlugin {
             return false;
         }
         PersistentDataContainer data = player.getPersistentDataContainer();
-        int jetpacking = data.get(new NamespacedKey(plugin, "jetpacking"), PersistentDataType.INTEGER);
-        return jetpacking == 1;
+        if (data.get(new NamespacedKey(plugin, "jetpacking"), PersistentDataType.INTEGER) != null){
+            return data.get(new NamespacedKey(plugin, "jetpacking"), PersistentDataType.INTEGER) == 1;
+        }
+        // they don't have the data, we can assume they aren't jetpacking
+        data.set(new NamespacedKey(plugin, "jetpacking"), PersistentDataType.INTEGER, 0);
+        // ^ shouldn't really have to do this, as if it should be true it's beem created, but whatever
+        return false;
+
 
     }
 
@@ -99,8 +132,9 @@ public class SimpleJetpacks extends JavaPlugin {
     }
 
     @Nullable
-    public static Integer getBurnRate(ItemMeta meta) {
-        PersistentDataContainer data = meta.getPersistentDataContainer();
+    public static Integer getBurnRate(ItemStack jetpack) {
+        ItemMeta chestplateMeta = jetpack.getItemMeta();
+        PersistentDataContainer data = chestplateMeta.getPersistentDataContainer();
         return data.get(new NamespacedKey(plugin, "burnRate"), PersistentDataType.INTEGER);
     }
 

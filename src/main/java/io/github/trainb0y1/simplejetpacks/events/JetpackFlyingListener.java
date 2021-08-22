@@ -2,7 +2,6 @@ package io.github.trainb0y1.simplejetpacks.events;
 
 import io.github.trainb0y1.simplejetpacks.SimpleJetpacks;
 import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -11,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 
 
 public class JetpackFlyingListener implements Listener {

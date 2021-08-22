@@ -34,7 +34,6 @@ public class SimpleJetpacks extends JavaPlugin {
         ItemManager.createJetpacks(this);
         PluginManager manager = getServer().getPluginManager();
 
-        manager.registerEvents(new RefuelEventListener(), this);
         manager.registerEvents(new JetpackFlyKickListener(), this);
         manager.registerEvents(new JetpackBreakListener(), this);
         manager.registerEvents(new JetpackToggleListener(), this);

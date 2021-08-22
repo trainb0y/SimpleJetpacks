@@ -11,13 +11,14 @@ repositories {
     mavenCentral()
     maven {
         url = 'https://papermc.io/repo/repository/maven-public/'
+        url = 'https://repo.minebench.de'
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
-    compileOnly 'com.github.stefvanschie.inventoryframework:IF:0.10.1'
+    implementation "de.themoep:inventorygui:1.5-SNAPSHOT"
 }
 
 sourceSets {

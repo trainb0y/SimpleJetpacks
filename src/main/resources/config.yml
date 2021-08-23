@@ -6,7 +6,7 @@
 old-motion: false
 
 # Whether to enable the fueling GUI
-fuel-gui: true
+fuel-gui: false
 
 # Fuel items are defined below, with <ID>:<Fuel Amount>
 items:

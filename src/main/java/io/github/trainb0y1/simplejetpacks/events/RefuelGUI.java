@@ -38,7 +38,17 @@ public class RefuelGUI implements Listener {
         InventoryGui gui = new InventoryGui(SimpleJetpacks.getPlugin(), player, "Jetpack", guiSetup);
         gui.setFiller(new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1)); // fill the empty slots with this
 
+        /*
+        We want C to be green stained glass saying "Confirm Fuel Transfer"
+        if everything is valid, or red, saying "invalid fuel" or
+        "invalid jetpack" if either of those are true.
 
+        Finally, it should be blue and say "jetpack full" if the jetpack to be
+        fueled is full.
+
+        I could really get used to this multiline comment thing! They
+        need to add this to Python lol.
+         */
         gui.addElement(new StaticGuiElement('C',
                 new ItemStack(Material.GREEN_STAINED_GLASS_PANE),
                 42, // Display a number as the item count

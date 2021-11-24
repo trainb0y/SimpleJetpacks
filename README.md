@@ -11,7 +11,7 @@ Jetpacks are defined in `config.yml`, in which you can specify the following:
 * Sound - The sound that plays while you fly
 * Recipe - The crafting recipe
 
-Jetpacks can not be enchanted with either Unbreaking or Mending
+Jetpacks can not be enchanted with Unbreaking or Mending
 
 To use a jetpack, hold shift while in midair.
   

@@ -1,6 +1,8 @@
 # SimpleJetpacks
 A 1.16+ Paper plugin that adds Jetpacks to Minecraft
 
+# Although the plugin is perfectly functional, the code quality is pretty poor. I don't reccomend using it. I may get around to a rewrite at some point, but until then I'm archiving this repository.
+
 ### Jetpacks
 Jetpacks are defined in `config.yml`, in which you can specify the following:
 * Base Chestplate - The base chestplate (iron, diamond, etc.)
